@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor =[UIColor redColor];
+    self.view.backgroundColor =[UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
     // Do any additional setup after loading the view.
     self.passwordLoginTextField.delegate = self;
     self.emailLoginTextField.delegate = self;
@@ -29,7 +29,7 @@
                                  250,
                                  200);
     [self.view addSubview:imageView];
-    self.view.backgroundColor = [UIColor redColor];
+    self.view.backgroundColor = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];

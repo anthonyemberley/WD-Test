@@ -8,6 +8,7 @@
 
 #import "initialAccessoriesViewController.h"
 #import "TextDataReader.h"
+#import "AccessoriesView.h"
 
 @interface initialAccessoriesViewController ()
 
@@ -17,9 +18,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSArray *words = [TextDataReader words];
-    NSLog(@"this is the first element of words %@", [words objectAtIndex:0]);
-    // Do any additional setup after loading the view.
+    
+    [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    
+    AccessoriesView *av = [[AccessoriesView alloc] initWithFrame:self.view.bounds];
+    [av setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
+    [self.view addSubview:av];
 }
 
 - (void)didReceiveMemoryWarning {

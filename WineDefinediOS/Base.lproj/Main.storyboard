@@ -95,7 +95,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1557" y="-990"/>
+            <point key="canvasLocation" x="2077" y="-1750"/>
         </scene>
         <!--New Touring Note View Controller-->
         <scene sceneID="Ohg-b5-IQg">
@@ -129,12 +129,11 @@
                     <connections>
                         <outlet property="tableview" destination="GwI-nV-X6L" id="qg3-Z8-RY6"/>
                         <segue destination="RnV-IP-NbR" kind="show" identifier="touringToFinalEditSegue" id="Xec-1w-Gwc"/>
-                        <segue destination="x7F-kI-eK1" kind="show" identifier="touringToInitialSearch" id="ArV-LV-hHc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aOB-pd-nzm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3602" y="169"/>
+            <point key="canvasLocation" x="3172" y="-55"/>
         </scene>
         <!--View Image View Controller-->
         <scene sceneID="JDM-tj-AKX">
@@ -198,7 +197,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Sh-M0-zUd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4298" y="-1248"/>
+            <point key="canvasLocation" x="1546" y="1232"/>
         </scene>
         <!--Recent Cellaring View Controller-->
         <scene sceneID="ndU-rq-iVK">
@@ -230,7 +229,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zXr-47-2Uu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4298" y="-408"/>
+            <point key="canvasLocation" x="1546" y="2072"/>
         </scene>
         <!--New Cellaring Note View Controller-->
         <scene sceneID="dSo-re-SGB">
@@ -264,7 +263,6 @@
                     <connections>
                         <outlet property="tableview" destination="5QQ-Wh-ZTI" id="qOH-nZ-MZ1"/>
                         <segue destination="Fyt-36-52X" kind="show" identifier="cellaringFinalEditSegue" id="tA0-bl-e5k"/>
-                        <segue destination="x7F-kI-eK1" kind="show" identifier="cellaringToInitialSearch" id="6cd-gN-lqB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VW8-Ob-SHL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -441,12 +439,11 @@
                         <outlet property="tableview" destination="vMg-gA-ARp" id="xU2-82-VQA"/>
                         <segue destination="9pv-A4-QxB" kind="show" identifier="passTheData" id="aPB-mt-6Hz"/>
                         <segue destination="RnV-IP-NbR" kind="show" identifier="finalEditSegue" id="bAH-lS-TZb"/>
-                        <segue destination="x7F-kI-eK1" kind="show" identifier="tastingToInitialSearch" id="HFr-ch-2D5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ckw-cI-vj2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1430" y="-230"/>
+            <point key="canvasLocation" x="1550" y="-942"/>
         </scene>
         <!--Final Edit View Controller-->
         <scene sceneID="yOR-dq-PP2">
@@ -685,6 +682,7 @@
                             <constraint firstItem="ygi-wn-L2o" firstAttribute="top" secondItem="Hoj-za-hlR" secondAttribute="bottom" constant="8" symbolic="YES" id="vKY-9o-e7M"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="9N1-Yf-udE"/>
                     <connections>
                         <outlet property="classTextField" destination="72m-SQ-MAn" id="TBJ-wU-meH"/>
                         <outlet property="recentTextField" destination="wjS-g1-WA2" id="BKT-9p-WYN"/>
@@ -694,14 +692,11 @@
                         <segue destination="RyS-kC-pJk" kind="show" identifier="recentTouringSegue" id="jel-bX-gYl"/>
                         <segue destination="9pR-6s-LLb" kind="show" identifier="recentCellaringSegue" id="bB8-Po-EEV"/>
                         <segue destination="tl6-uO-lK5" kind="show" identifier="recentNotesSegue" id="YYg-ch-Xq2"/>
-                        <segue destination="tkA-jN-Z0G" kind="show" identifier="searchToTouring" id="D6e-iO-Xxv"/>
-                        <segue destination="8hZ-kx-qwR" kind="show" identifier="searchToCellaring" id="kSb-ri-4jI"/>
-                        <segue destination="m9t-Hy-Kvi" kind="show" identifier="searchToTasting" id="pWo-uV-OFf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oyt-6j-qvI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3525" y="1020"/>
+            <point key="canvasLocation" x="441" y="1844"/>
         </scene>
         <!--Recent Notes View Controller-->
         <scene sceneID="hiw-i9-pvQ">
@@ -767,7 +762,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="4286" y="450"/>
+            <point key="canvasLocation" x="722" y="2930"/>
         </scene>
         <!--WineDefined-->
         <scene sceneID="WIb-gw-6rX">
@@ -801,11 +796,57 @@
                     <connections>
                         <segue destination="BKs-Ki-wqd" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="3Av-Fv-JLE" kind="relationship" relationship="viewControllers" id="e7q-mo-56L"/>
+                        <segue destination="ydj-lK-jzk" kind="relationship" relationship="viewControllers" id="6tS-iO-gKL"/>
+                        <segue destination="Xsy-df-RBK" kind="relationship" relationship="viewControllers" id="zJG-j6-1pZ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="32" y="-230"/>
+        </scene>
+        <!--WineDefined-->
+        <scene sceneID="M03-B2-qCl">
+            <objects>
+                <tableViewController id="CiA-0T-eFX" customClass="SettingsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="49A-nL-2DF">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="fdU-a2-6w1">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fdU-a2-6w1" id="6N2-b6-GVD">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="CiA-0T-eFX" id="Fkk-XV-c5h"/>
+                            <outlet property="delegate" destination="CiA-0T-eFX" id="XHN-Rw-Y55"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="WineDefined" id="o1P-Qs-ypB"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fBn-6A-7f4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1489" y="-150"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="DK4-rj-KJE">
+            <objects>
+                <navigationController id="ydj-lK-jzk" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" id="98K-lU-O9x"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SZI-B7-fyb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="CiA-0T-eFX" kind="relationship" relationship="rootViewController" id="uYo-BD-lNE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vlA-i3-2i7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="781" y="-172"/>
         </scene>
         <!--Forgot Password View Controller-->
         <scene sceneID="daT-8x-XZS">
@@ -967,7 +1008,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fNi-Iu-L2E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-734" y="-230"/>
+            <point key="canvasLocation" x="-1250" y="-446"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="Cu1-kh-7h4">
@@ -1058,7 +1099,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Ltb-Sr-wz2" customClass="PageViewController" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TLk-BK-Q9C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2822" y="1231"/>
+            <point key="canvasLocation" x="-496" y="2987"/>
         </scene>
         <!--Notes-->
         <scene sceneID="1MH-e1-4YN">
@@ -1096,15 +1137,32 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aEU-x4-aHT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="32" y="737"/>
+            <point key="canvasLocation" x="268" y="581"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="LUH-ig-XqW">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Xsy-df-RBK" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Search" id="Lcc-83-hbX"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bwL-dx-H1j">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="x7F-kI-eK1" kind="relationship" relationship="rootViewController" id="fTa-6g-G3Z"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vfi-U0-PJ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-371" y="1844"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="VrT-tM-87G"/>
-        <segue reference="rjA-Kn-FYd"/>
-        <segue reference="bAH-lS-TZb"/>
-        <segue reference="HFr-ch-2D5"/>
+        <segue reference="3fJ-O2-2xM"/>
         <segue reference="zzS-Bd-q8L"/>
-        <segue reference="tA0-bl-e5k"/>
+        <segue reference="BQQ-t0-6U2"/>
+        <segue reference="jd4-uv-xBZ"/>
     </inferredMetricsTieBreakers>
 </document>

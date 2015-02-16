@@ -29,8 +29,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.backgroundColor = [UIColor redColor];
-    self.view.backgroundColor = [UIColor redColor];
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
+    self.view.backgroundColor = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
     self.testInt = 0;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didRecognizeTapGesture:)];
     [self.classTextField.superview addGestureRecognizer:tapGesture];
@@ -58,10 +58,6 @@
     [self.segmentControl addTarget:self action:@selector(MySegmentControlAction:) forControlEvents: UIControlEventValueChanged];
     
     self.navigationItem.title = @"WineDefined";
-    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"Add Note" style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonPressed:)];
-    anotherButton.tintColor =[UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem = anotherButton;
-    
     
     
     
@@ -73,7 +69,7 @@
     self.recentArray = recentStuff;
     
     self.segmentControl.selectedSegmentIndex =self.segmentIndex;
-    self.segmentControl.backgroundColor = [UIColor redColor];
+    self.segmentControl.backgroundColor = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
     self.segmentControl.tintColor = [UIColor whiteColor];
    
 }

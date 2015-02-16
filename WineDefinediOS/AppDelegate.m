@@ -37,7 +37,7 @@
                                               forState:UIControlStateNormal];
     [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }
                                              forState:UIControlStateSelected];
-    [UINavigationBar appearance].barTintColor = [UIColor redColor];
+    [UINavigationBar appearance].barTintColor = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
     [UINavigationBar appearance].tintColor = [UIColor whiteColor];
     
     PFUser *currentUser = [PFUser currentUser];

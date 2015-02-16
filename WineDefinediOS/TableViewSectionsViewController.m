@@ -13,6 +13,7 @@
 #import "initialSearchViewController.h"
 
 
+
 @interface TableViewSectionsViewController ()
 
 
@@ -24,6 +25,7 @@
 @property CGSize imageSize;
 @property NSString *classString;
 @property NSString *evaluationString;
+@property UILabel  *ratingLabel;
 
 
 @property (strong, nonatomic) UISegmentedControl *viewSegments;
@@ -51,6 +53,7 @@
 @property (nonatomic, strong) NSIndexPath *evaluationCell;
 @property (nonatomic, strong) NSIndexPath *ratingCell;
 @property (nonatomic, strong) NSIndexPath *whereCell;
+@property (nonatomic, strong) NSIndexPath *summaryCell;
 @property (nonatomic, strong) NSIndexPath *finalEditCell;
 
 
@@ -99,6 +102,14 @@
 
 @property(assign) BOOL sectBool;
 
+@property(assign) BOOL classBool;
+
+@property(assign) BOOL appearanceBool;
+
+@property(assign) BOOL mouthfeelBool;
+
+@property(assign) BOOL finishBool;
+
 
 
 @property (nonatomic, retain) UITextField *wineryTextFieldView;
@@ -116,16 +127,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIImageView* imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 75, 44)];
+    imgView.image = [UIImage imageNamed:@"winedefinedICONkll.png"];
     
-    	
+    UILabel *tempLabel = [[UILabel alloc] init];
+    self.ratingLabel = tempLabel;
+    self.ratingLabel.text = @"70";
+    self.ratingLabel.font =[UIFont systemFontOfSize:20];
+//    self.ratingLabel.frame = CGRectMake(0, 0, 15, 15);
+    
+    self.navigationItem.titleView = imgView;
+    
+    
+    UIImageView* imgView2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 75, 44)];
+    imgView2.image = [UIImage imageNamed:@"winedefinedICONkll.png"];
+    
+    
+    
+//
+////    UIView *iv = [[UIView alloc] initWithFrame:CGRectMake(0,0,32,32)];
+////    [iv setBackgroundColor:[UIColor whiteColor]];
+//    self.navigationItem.titleView = iv;
     self.navigationController.navigationBar.translucent = YES;
-    self.navigationController.navigationBar.backgroundColor = [UIColor redColor];
-    self.navigationController.navigationBar.barTintColor = [UIColor redColor];
-    self.tabBarController.tabBar.barTintColor   = [UIColor redColor];
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
+    self.tabBarController.tabBar.barTintColor   = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
     
-    UIBarButtonItem *anotherButton2 = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonPressed:)];
-    anotherButton2.tintColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem = anotherButton2;
+    
     
     NSArray *itemArray = [NSArray arrayWithObjects: @"Tasting", @"Cellaring", @"Touring", nil];
     self.viewSegments = [[UISegmentedControl alloc] initWithItems:itemArray];
@@ -136,8 +164,8 @@
     
     //self.navigationController.navigationItem.titleView = self.viewSegments;
     UIToolbar *toolbar = [[UIToolbar alloc] init];
-    toolbar.tintColor = [UIColor redColor];
-    toolbar.barTintColor = [UIColor redColor];
+    toolbar.tintColor = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
+    toolbar.barTintColor = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
     toolbar.frame = CGRectMake(0, 64, self.view.frame.size.width, 35);
     
     [self.view addSubview:toolbar];
@@ -151,6 +179,11 @@
     
     
     self.sectBool = true;
+    self.appearanceBool = true;
+    self.classBool = true;
+    self.finishBool = true;
+    self.mouthfeelBool = true;
+    
     
     self.wineryTextFieldView.delegate = self;
     self.typeTextFieldView.delegate = self;
@@ -268,7 +301,7 @@
     NSIndexPath *tempIndexPath = [[NSIndexPath alloc] init];
     self.currentIndexPath = tempIndexPath;
     
-    self.viewSegments.backgroundColor = [UIColor redColor];
+    self.viewSegments.backgroundColor = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
     self.viewSegments.tintColor = [UIColor whiteColor];
     
 }
@@ -345,7 +378,7 @@
                     [cell.contentView addSubview:leftLabel];
                     
                     
-                    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"camera.jpg"]];
+                    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-camera-128.png"]];
                     cell.textLabel.text = @"Add Photo";
                     imageView.frame = CGRectMake(self.view.center.x +70, 38, cell.frame.size.height-10, cell.frame.size.height-10);
                     
@@ -355,7 +388,7 @@
                     self.rightImage = imageView;
                     [cell.contentView addSubview:self.rightImage];
                     
-                    UIImageView *newImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"camera.jpg"]];
+                    UIImageView *newImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-camera-128.png"]];
                     cell.textLabel.text = @"Add Photo";
                     newImageView.frame = CGRectMake(310, 48, cell.frame.size.height-10, cell.frame.size.height-10);
                     self.leftImage = newImageView;
@@ -396,78 +429,124 @@
             }
     }
     if (row == 0 && section ==1){
-                self.classCell = indexPath;
-                static NSString *CellIdentifier = @"ClassCell";
-                
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-                }
-                
-                
-                
-                cell.textLabel.text = @"*Select Class (required)";
-                
-                return cell;
-                
-            }
-    else if (row == 1 && section == 1){
-                static NSString *CellIdentifier = @"WineryCell";
-                
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-                    //cell.textLabel.text = @"Winery/Title";
-                    self.wineryCell = indexPath;
-                    
-                    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(cell.frame.origin.x +15, cell.frame.origin.y, cell.frame.size.width, 40)];
-                    textField.placeholder = @"*Enter Winery or Brand (required)";
-                    textField.adjustsFontSizeToFitWidth = YES;
-                    textField.returnKeyType = UIReturnKeyDone;
-                    textField.delegate = self;
-                    [textField addTarget:self
-                                  action:@selector(textFieldDidChange:)
-                        forControlEvents:UIControlEventEditingChanged];
-                    self.wineryTextFieldView = textField;
-                    
-                    
-                    
-                    
-                    [cell.contentView addSubview:self.wineryTextFieldView];
-                }
-                
-                
-                
-                return cell;
-                
+        static NSString *CellIdentifier = @"WineryCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            //cell.textLabel.text = @"Winery/Title";
+            self.wineryCell = indexPath;
+            
+            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(cell.frame.origin.x +15, cell.frame.origin.y, cell.frame.size.width, 40)];
+            textField.placeholder = @"*Enter Winery or Brand (required)";
+            textField.adjustsFontSizeToFitWidth = YES;
+            textField.returnKeyType = UIReturnKeyDone;
+            textField.delegate = self;
+            [textField addTarget:self
+                          action:@selector(textFieldDidChange:)
+                forControlEvents:UIControlEventEditingChanged];
+            self.wineryTextFieldView = textField;
+            
+            
+            
+            
+            [cell.contentView addSubview:self.wineryTextFieldView];
+        }
+        
+        
+        
+        return cell;
+        
+        
+        
                 
     }
+    else if (row == 1 && section == 1){
+        
+        
+        static NSString *CellIdentifier = @"TypeCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            //cell.textLabel.text = @"Type of Wine";
+            self.typeCell = indexPath;
+            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(cell.frame.origin.x +15, cell.frame.origin.y, cell.frame.size.width, 40)];
+            textField.placeholder = @"*Enter Type of Wine (required)";
+            textField.adjustsFontSizeToFitWidth = YES;
+            textField.returnKeyType = UIReturnKeyDone;
+            
+            textField.delegate = self;
+            [textField addTarget:self
+                          action:@selector(textFieldDidChange:)
+                forControlEvents:UIControlEventEditingChanged];
+            self.typeTextFieldView = textField;
+            [cell.contentView addSubview:self.typeTextFieldView];
+        }
+        
+        
+        
+        return cell;
+        
+        
+    }
     else if (row == 2 && section ==1){
-                static NSString *CellIdentifier = @"TypeCell";
-                
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-                    //cell.textLabel.text = @"Type of Wine";
-                    self.typeCell = indexPath;
-                    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(cell.frame.origin.x +15, cell.frame.origin.y, cell.frame.size.width, 40)];
-                    textField.placeholder = @"*Enter Type of Wine (required)";
-                    textField.adjustsFontSizeToFitWidth = YES;
-                    textField.returnKeyType = UIReturnKeyDone;
-                    
-                    textField.delegate = self;
-                    [textField addTarget:self
-                                  action:@selector(textFieldDidChange:)
-                        forControlEvents:UIControlEventEditingChanged];
-                    self.typeTextFieldView = textField;
-                    [cell.contentView addSubview:self.typeTextFieldView];
-                }
-                
-                
-                
-                return cell;
-                
-            }
+        
+        
+
+    
+        self.ratingCell = indexPath;
+        
+        static NSString *CellIdentifier = @"RatingCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            UISlider *slider = [[UISlider alloc] init];
+            slider.minimumValue = 70;
+            slider.maximumValue = 100;
+            
+            self.ratingLabel.frame = CGRectMake(15, 0, 40, 15);
+            cell.detailTextLabel.adjustsFontSizeToFitWidth  = YES;
+            cell.accessoryView = self.ratingLabel;
+            [cell.contentView addSubview:slider];
+            //slider.bounds = CGRectMake(30, 0, cell.contentView.bounds.size.width - 100, slider.bounds.size.height -10);
+            slider.frame = CGRectMake(slider.frame.origin.x-20, slider.frame.origin.y, cell.contentView.frame.size.width - 170 , slider.frame.size.height);
+            slider.center = CGPointMake(CGRectGetMidX(cell.contentView.bounds) +30, 30);
+            //slider.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+            [slider addTarget:self
+                       action:@selector(sliderValueChanged:)
+             forControlEvents:UIControlEventValueChanged];
+            self.ratingSlider = slider;
+        
+        }
+    
+        cell.textLabel.text = @"My Rating";
+    
+    
+        return cell;
+    }
+    
+
+    else if (row == 3 && section == 1){
+        
+       
+        
+        self.classCell = indexPath;
+        static NSString *CellIdentifier = @"ClassCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        
+        
+        
+        cell.textLabel.text = @"*Select Class (required)";
+        
+        return cell;
+
+    }
     
     else if (section == 2 && row == 0){
         static NSString *CellIdentifier = @"VintageCell";
@@ -565,114 +644,139 @@
                 return cell;
             }
             else if (indexPath.row == 1){
-                static NSString *CellIdentifier = @"BerryCell";
+                static NSString *CellIdentifier = @"AromasButtonsCell";
+                
                 
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
                 if (cell == nil) {
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+                    //31 flavors
+                    NSArray *colors = @[[self colorFromHexString:@"#DC143C"],
+                                        [self colorFromHexString:@"#DC143C" ],
+                                        [self colorFromHexString:@"#DC143C" ],
+                                        [self colorFromHexString:@"#DC143C" ],
+                                        [self colorFromHexString:@"#DC143C" ],
+                                        
+                                        [self colorFromHexString:@"#44743d" ],
+                                        [self colorFromHexString:@"#44743d" ],
+                                        [self colorFromHexString:@"#44743d" ],
+                                        [self colorFromHexString:@"#44743d"],
+                                        [self colorFromHexString:@"#44743d" ],
+                                        [self colorFromHexString:@"#44743d" ],
+                                        [self colorFromHexString:@"#686868" ],
+                                        [self colorFromHexString:@"#686868" ],
+                                        [self colorFromHexString:@"#686868" ],
+                                        [self colorFromHexString:@"#ffd700" ],
+                                        [self colorFromHexString:@"#ffd700" ],
+                                        [self colorFromHexString:@"#ffd700" ],
+                                        [self colorFromHexString:@"#C40000" ],
+                                        [self colorFromHexString:@"#C40000"],
+                                        [self colorFromHexString:@"#C40000" ],
+                                        [self colorFromHexString:@"#C40000" ],
+                                        [self colorFromHexString:@"#C40000" ],
+                                        [self colorFromHexString:@"#C40000" ],
+                                        [self colorFromHexString:@"#C40000" ],
+                                        [self colorFromHexString:@"#663300"],
+                                        [self colorFromHexString:@"#663300" ],
+                                        [self colorFromHexString:@"#663300" ],
+                                        [self colorFromHexString:@"#663300" ] ];
+                    NSArray *texts = @[ @" blackberries ", @" blueberries ", @" currants ",   @" raspberries ", @" strawberries ",
+                                        
+                                        
+                                        @" cut grass ", @" dried herbs ", @" dried straw ",
+                                        @" asparagus ", @" bell pepper ", @" cat piss ",
+                                        @" black pepper ", @" cardamom ", @" coriander ",
+                                        @" botrytis tones ", @" honey ", @" perfume ",
+                                        @" apples ", @" cherries ", @" citrus ", @" peach ",
+                                        @" prunes ", @" raisins ", @" tropical fruit ",
+                                        @" barrel tones ", @" minerals ", @" oaky ", @" smoky "];
+                    
+                    int indexOfLeftmostButtonOnCurrentLine = 0;
+                    NSMutableArray *buttons = [[NSMutableArray alloc] init];
+                    float runningWidth = 0.0f;
+                    float maxWidth = self.view.frame.size.width-23;
+                    float horizontalSpaceBetweenButtons = 11.0f;
+                    float verticalSpaceBetweenButtons = 10.0f;
+                    
+                    for (int i=0; i<texts.count; i++) {
+                        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                        [button setTitle:[texts objectAtIndex:i] forState:UIControlStateNormal];
+                        [button sizeToFit];
+                        [button setTitleColor:[colors objectAtIndex:i] forState:UIControlStateNormal];
+                        
+                        
+                        [button setTag:i-1];
+                        [button addTarget:self action:@selector(buttonTouched:) forControlEvents:UIControlEventTouchUpInside];
+                        //                button.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y, button.frame.size.width +10, button.frame.size.height);
+                        button.layer.borderWidth=1.5f;
+                        [button.layer setCornerRadius:5.0f];
+                        button.layer.borderColor=[[UIColor blackColor] CGColor];
+                        button.translatesAutoresizingMaskIntoConstraints = NO;
+                        
+                        [cell.contentView addSubview:button];
+                        
+                        // check if first button or button would exceed maxWidth
+                        if ((i == 0) || (runningWidth + button.frame.size.width > maxWidth)) {
+                            // wrap around into next line
+                            runningWidth = button.frame.size.width;
+                            
+                            if (i== 0) {
+                                // first button (top left)
+                                // horizontal position: same as previous leftmost button (on line above)
+                                NSLayoutConstraint *horizontalConstraint = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:horizontalSpaceBetweenButtons];
+                                [cell.contentView addConstraint:horizontalConstraint];
+                                
+                                // vertical position:
+                                NSLayoutConstraint *verticalConstraint = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeTop              multiplier:1.0f constant:verticalSpaceBetweenButtons];
+                                [cell.contentView addConstraint:verticalConstraint];
+                                
+                                
+                            } else {
+                                // put it in new line
+                                UIButton *previousLeftmostButton = [buttons objectAtIndex:indexOfLeftmostButtonOnCurrentLine];
+                                
+                                // horizontal position: same as previous leftmost button (on line above)
+                                NSLayoutConstraint *horizontalConstraint = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:previousLeftmostButton attribute:NSLayoutAttributeLeft multiplier:1.0f constant:0.0f];
+                                [cell.contentView addConstraint:horizontalConstraint];
+                                
+                                // vertical position:
+                                NSLayoutConstraint *verticalConstraint = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:previousLeftmostButton attribute:NSLayoutAttributeBottom multiplier:1.0f constant:verticalSpaceBetweenButtons];
+                                [cell.contentView addConstraint:verticalConstraint];
+                                
+                                indexOfLeftmostButtonOnCurrentLine = i;
+                            }
+                        } else {
+                            // put it right from previous buttom
+                            runningWidth += button.frame.size.width + horizontalSpaceBetweenButtons;
+                            
+                            UIButton *previousButton = [buttons objectAtIndex:(i-1)];
+                            
+                            // horizontal position: right from previous button
+                            NSLayoutConstraint *horizontalConstraint = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:previousButton attribute:NSLayoutAttributeRight multiplier:1.0f constant:horizontalSpaceBetweenButtons];
+                            [cell.contentView addConstraint:horizontalConstraint];
+                            
+                            // vertical position same as previous button
+                            NSLayoutConstraint *verticalConstraint = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:previousButton attribute:NSLayoutAttributeTop multiplier:1.0f constant:0.0f];
+                            [cell.contentView addConstraint:verticalConstraint];
+                        }
+                        
+                        [buttons addObject:button];
+                    }
                 }
-                cell.textLabel.text = [self.aromasCategoriesArray objectAtIndex:indexPath.row -1];
-                self.berryishCell = indexPath;
+                
+                cell.textLabel.textAlignment = NSTextAlignmentLeft;
+                cell.textLabel.textColor = [UIColor blueColor];
+                //        cell.textLabel.text = @"Test";
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                
+                
                 return cell;
                 
             }
-            else if (indexPath.row == 2){
-                static NSString *CellIdentifier = @"FloralCell";
+
                 
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-                }
-                cell.textLabel.text = [self.aromasCategoriesArray objectAtIndex:indexPath.row -1];
-                self.floralCell = indexPath;
-                return cell;
                 
-            }
-            else if (indexPath.row == 3){
-                static NSString *CellIdentifier = @"FruityCell";
-                
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-                }
-                cell.textLabel.text = [self.aromasCategoriesArray objectAtIndex:indexPath.row -1];
-                self.fruityCell = indexPath;
-                return cell;
-                
-            }
-            else if (indexPath.row == 4){
-                static NSString *CellIdentifier = @"HerbalCell";
-                
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-                }
-                cell.textLabel.text = [self.aromasCategoriesArray objectAtIndex:indexPath.row -1];
-                self.herbalCell = indexPath;
-                return cell;
-                
-            }
-            else if (indexPath.row == 5){
-                static NSString *CellIdentifier = @"NuttyCell";
-                
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-                }cell.textLabel.text = [self.aromasCategoriesArray objectAtIndex:indexPath.row -1];
-                self.nuttyCell = indexPath;
-                return cell;
-                
-            }
-            else if (indexPath.row == 6){
-                static NSString *CellIdentifier = @"SpicyCell";
-                
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-                }
-                cell.textLabel.text = [self.aromasCategoriesArray objectAtIndex:indexPath.row -1];
-                self.spicyCell = indexPath;
-                
-                return cell;
-            }
-            else if (indexPath.row == 7){
-                static NSString *CellIdentifier = @"SweetCell";
-                
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-                }
-                cell.textLabel.text = [self.aromasCategoriesArray objectAtIndex:indexPath.row -1];
-                self.sweetCell = indexPath;
-                return cell;
-                
-            }
-            else if (indexPath.row == 8){
-                static NSString *CellIdentifier = @"VeggieCell";
-                
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-                }
-                cell.textLabel.text = [self.aromasCategoriesArray objectAtIndex:indexPath.row -1];
-                self.veggieCell = indexPath;
-                return cell;
-                
-            }
-            else {
-                static NSString *CellIdentifier = @"WoodyCell";
-                
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-                }
-                cell.textLabel.text = [self.aromasCategoriesArray objectAtIndex:indexPath.row -1];
-                self.woodyCell = indexPath;
-                return cell;
-                
-            }
-        
-        
             
     }
     else if(section ==5){
@@ -690,22 +794,12 @@
             return cell;
         }
         else if (row ==1){
-            static NSString *CellIdentifier = @"MouthFeelCell2";
             
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-            }
-            
-            
-            cell.textLabel.text = @"Mouthfeel (select one, refine by editing)";
-            self.mouthfeelCell2 = indexPath;
-            return cell;
         }
         
     }
     
-    else if(section == 6){
+    else if(section == 6 && row == 0){
         
             static NSString *CellIdentifier = @"FinishCell";
             
@@ -721,46 +815,26 @@
     }
     
     else if(section == 7){
-    
-            static NSString *CellIdentifier = @"EvaluationCell";
-            
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-            }
-            
-            
-            cell.textLabel.text = @"Evaluation. Select One (mandatory)";
-            self.evaluationCell = indexPath;
-            return cell;
-    }
-    else if(section ==8){
-        self.ratingCell = indexPath;
+        self.summaryCell = indexPath;
         
-        static NSString *CellIdentifier = @"RatingCell";
+        static NSString *CellIdentifier = @"SummaryCell";
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-            UISlider *slider = [[UISlider alloc] init];
-            slider.minimumValue = 70;
-            slider.maximumValue = 100;
             
-            [cell.contentView addSubview:slider];
-            slider.bounds = CGRectMake(30, 0, cell.contentView.bounds.size.width - 80, slider.bounds.size.height -10);
-            slider.center = CGPointMake(CGRectGetMidX(cell.contentView.bounds) +70, CGRectGetMidY(cell.contentView.bounds));
-            //slider.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-            [slider addTarget:self
-                       action:@selector(sliderValueChanged:)
-             forControlEvents:UIControlEventValueChanged];
-            self.ratingSlider = slider;
         }
         
         
-        cell.textLabel.text = @"My Rating";
+        cell.textLabel.text = @"Summary";
         
         
         return cell;
+    
+        
+    }
+    else if(section ==8){
+        
         
     }
     else if(section == 9){
@@ -774,7 +848,7 @@
         }
         
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.textColor = [UIColor redColor];
+        cell.textLabel.textColor = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
         cell.textLabel.text = @"Final Edit";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -784,7 +858,7 @@
         
         
     }else if (section == 10){
-        self.finalEditCell = indexPath;
+        //self.finalEditCell = indexPath;
         static NSString *CellIdentifier = @"TestCell";
         
         
@@ -792,16 +866,45 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
             //31 flavors
-            NSArray *colors = @[[self colorFromHexString:@"#FF5E3A"], [self colorFromHexString:@"#52EDC7" ], [self colorFromHexString:@"#C644FC" ], [self colorFromHexString:@"#FFCC00" ], [self colorFromHexString:@"#5AD427" ], [self colorFromHexString:@"#8E8E93" ], [self colorFromHexString:@"#007AFF" ], [self colorFromHexString:@"#FF4981" ], [self colorFromHexString:@"#81F3FD" ], [self colorFromHexString:@"#FF5E3A"], [self colorFromHexString:@"#52EDC7" ], [self colorFromHexString:@"#C644FC" ], [self colorFromHexString:@"#FFCC00" ], [self colorFromHexString:@"#5AD427" ], [self colorFromHexString:@"#8E8E93" ], [self colorFromHexString:@"#007AFF" ], [self colorFromHexString:@"#FF4981" ], [self colorFromHexString:@"#81F3FD" ], [self colorFromHexString:@"#FF5E3A"], [self colorFromHexString:@"#52EDC7" ], [self colorFromHexString:@"#C644FC" ], [self colorFromHexString:@"#FFCC00" ], [self colorFromHexString:@"#5AD427" ], [self colorFromHexString:@"#8E8E93" ], [self colorFromHexString:@"#007AFF" ], [self colorFromHexString:@"#FF4981" ], [self colorFromHexString:@"#81F3FD" ],[self colorFromHexString:@"#FF5E3A"], [self colorFromHexString:@"#52EDC7" ], [self colorFromHexString:@"#C644FC" ], [self colorFromHexString:@"#FFCC00" ] ];
+            NSArray *colors = @[[self colorFromHexString:@"#DC143C"],
+                                [self colorFromHexString:@"#DC143C" ],
+                                [self colorFromHexString:@"#DC143C" ],
+                                [self colorFromHexString:@"#DC143C" ],
+                                [self colorFromHexString:@"#DC143C" ],
+                                
+                                [self colorFromHexString:@"#44743d" ],
+                                [self colorFromHexString:@"#44743d" ],
+                                [self colorFromHexString:@"#44743d" ],
+                                [self colorFromHexString:@"#44743d"],
+                                [self colorFromHexString:@"#44743d" ],
+                                [self colorFromHexString:@"#44743d" ],
+                                [self colorFromHexString:@"#686868" ],
+                                [self colorFromHexString:@"#686868" ],
+                                [self colorFromHexString:@"#686868" ],
+                                [self colorFromHexString:@"#ffd700" ],
+                                [self colorFromHexString:@"#ffd700" ],
+                                [self colorFromHexString:@"#ffd700" ],
+                                [self colorFromHexString:@"#C40000" ],
+                                [self colorFromHexString:@"#C40000"],
+                                [self colorFromHexString:@"#C40000" ],
+                                [self colorFromHexString:@"#C40000" ],
+                                [self colorFromHexString:@"#C40000" ],
+                                [self colorFromHexString:@"#C40000" ],
+                                [self colorFromHexString:@"#C40000" ],
+                                [self colorFromHexString:@"#663300"],
+                                [self colorFromHexString:@"#663300" ],
+                                [self colorFromHexString:@"#663300" ],
+                                [self colorFromHexString:@"#663300" ] ];
             NSArray *texts = @[ @" blackberries ", @" blueberries ", @" currants ",   @" raspberries ", @" strawberries ",
-                                @" lilacs ", @" violets ", @" wild flowers ",
-                                @" apples ", @" cherries ", @" citrus ", @" peach ",
-                                @" prunes ", @" raisins ", @" tropical fruit ",
+                                
+                                
                                 @" cut grass ", @" dried herbs ", @" dried straw ",
                                 @" asparagus ", @" bell pepper ", @" cat piss ",
                                 @" black pepper ", @" cardamom ", @" coriander ",
-                                @" botrytis ", @" honey ", @" fully ripe-fruit ",
-                                @" barrel tones ", @" oak ", @" smoke ", @" vanillin "];
+                                @" botrytis tones ", @" honey ", @" perfume ",
+                                @" apples ", @" cherries ", @" citrus ", @" peach ",
+                                @" prunes ", @" raisins ", @" tropical fruit ",
+                                @" barrel tones ", @" minerals ", @" oaky ", @" smoky "];
             
             int indexOfLeftmostButtonOnCurrentLine = 0;
             NSMutableArray *buttons = [[NSMutableArray alloc] init];
@@ -817,7 +920,7 @@
                 [button setTitleColor:[colors objectAtIndex:i] forState:UIControlStateNormal];
                 
 
-                [button setTag:i];
+                [button setTag:i-1];
                 [button addTarget:self action:@selector(buttonTouched:) forControlEvents:UIControlEventTouchUpInside];
 //                button.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y, button.frame.size.width +10, button.frame.size.height);
                 button.layer.borderWidth=1.5f;
@@ -927,14 +1030,43 @@
         return 1;
     }
     else if(section == 1){
-        return 3;
+        if (self.classBool){
+            return 4;
+        }
+        else{
+            return 5;
+        }
     }
+    else if (section == 3){
+        if (self.appearanceBool){
+            return 1;
+        }
+        else{
+            return 2;
+        }
+    }
+    
     else if (section == 4){
         if (self.sectBool){
             return 1;
         }
         else{
-            return 10;
+            return 2;
+        }
+    }else if (section == 5){
+        if (self.mouthfeelBool){
+            return 1;
+        }
+        else{
+            return 2;
+        }
+    }
+    else if (section == 6){
+        if (self.finishBool){
+            return 1;
+        }
+        else{
+            return 2;
         }
     }
 //    else if(section == 5){
@@ -949,102 +1081,154 @@
 
 -(void)buttonTouched:(UIButton *)sender
 {
-    
+    //new
     NSInteger buttonTag = sender.tag;
     if (buttonTag >= 100) {
         sender.backgroundColor = [UIColor clearColor];
-        switch ((sender.tag-100)%9) {
-            case 0:
-                [sender setTitleColor:[self colorFromHexString:@"#FF5E3A"] forState:UIControlStateNormal] ;
-                sender.tag -= 100;
-                break;
-            case 1:
-                [sender setTitleColor:[self colorFromHexString:@"#52EDC7"] forState:UIControlStateNormal] ;
-                sender.tag -= 100;
-                break;
-            case 2:
-                [sender setTitleColor:[self colorFromHexString:@"#C644FC"] forState:UIControlStateNormal] ;
-                sender.tag -= 100;
-                break;
-            case 3:
-                [sender setTitleColor:[self colorFromHexString:@"#FFCC00"] forState:UIControlStateNormal] ;
-                sender.tag -= 100;
-                break;
-            case 4:
-                [sender setTitleColor:[self colorFromHexString:@"#5AD427"] forState:UIControlStateNormal] ;
-                sender.tag -= 100;
-                break;
-            case 5:
-                [sender setTitleColor:[self colorFromHexString:@"#8E8E93"] forState:UIControlStateNormal] ;
-                sender.tag -= 100;
-                break;
-            case 6:
-                [sender setTitleColor:[self colorFromHexString:@"#FF5E3A"] forState:UIControlStateNormal] ;
-                sender.tag -= 100;
-                break;
-            case 7:
-                [sender setTitleColor:[self colorFromHexString:@"#FF4981"] forState:UIControlStateNormal] ;
-                sender.tag -= 100;
-                break;
-            case 8:
-                [sender setTitleColor:[self colorFromHexString:@"#81F3FD"] forState:UIControlStateNormal] ;
-                sender.tag -= 100;
-                break;
-                
-            default:
-                break;
+//        switch ((sender.tag-100)%9) {
+//            case 0:
+//                [sender setTitleColor:[self colorFromHexString:@"#FF5E3A"] forState:UIControlStateNormal] ;
+//                sender.tag -= 100;
+//                break;
+//            case 1:
+//                [sender setTitleColor:[self colorFromHexString:@"#52EDC7"] forState:UIControlStateNormal] ;
+//                sender.tag -= 100;
+//                break;
+//            case 2:
+//                [sender setTitleColor:[self colorFromHexString:@"#C644FC"] forState:UIControlStateNormal] ;
+//                sender.tag -= 100;
+//                break;
+//            case 3:
+//                [sender setTitleColor:[self colorFromHexString:@"#FFCC00"] forState:UIControlStateNormal] ;
+//                sender.tag -= 100;
+//                break;
+//            case 4:
+//                [sender setTitleColor:[self colorFromHexString:@"#5AD427"] forState:UIControlStateNormal] ;
+//                sender.tag -= 100;
+//                break;
+//            case 5:
+//                [sender setTitleColor:[self colorFromHexString:@"#8E8E93"] forState:UIControlStateNormal] ;
+//                sender.tag -= 100;
+//                break;
+//            case 6:
+//                [sender setTitleColor:[self colorFromHexString:@"#FF5E3A"] forState:UIControlStateNormal] ;
+//                sender.tag -= 100;
+//                break;
+//            case 7:
+//                [sender setTitleColor:[self colorFromHexString:@"#FF4981"] forState:UIControlStateNormal] ;
+//                sender.tag -= 100;
+//                break;
+//            case 8:
+//                [sender setTitleColor:[self colorFromHexString:@"#81F3FD"] forState:UIControlStateNormal] ;
+//                sender.tag -= 100;
+//                break;
+//                
+//            default:
+//                break;
+        
+//        }
+        if (sender.tag<104 ) {
+            [sender setTitleColor: [self colorFromHexString:@"#DC143C"] forState:UIControlStateNormal];
+            sender.tag -= 100;
         }
+        else if(sender.tag <110){
+            [sender setTitleColor:[self colorFromHexString:@"#44743d"]forState:UIControlStateNormal];
+            sender.tag -= 100;
+        }
+        else if(sender.tag <113){
+            [sender setTitleColor:[self colorFromHexString:@"#686868"]forState:UIControlStateNormal];
+            sender.tag -= 100;
+        }
+        else if(sender.tag <116){
+            [sender setTitleColor: [self colorFromHexString:@"#ffd700"]forState:UIControlStateNormal];
+            sender.tag -= 100;
+        }
+        else if(sender.tag <123){
+            [sender setTitleColor:[self colorFromHexString:@"#C40000"]forState:UIControlStateNormal];
+            sender.tag -= 100;
+        }
+        else if(sender.tag <127){
+            [sender setTitleColor:[self colorFromHexString:@"#663300"]forState:UIControlStateNormal];
+            sender.tag -= 100;
+        }
+        
+        
         
     }else{
     
-        sender.backgroundColor = [UIColor redColor];
+        sender.backgroundColor = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
         [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         
-        NSInteger modded = buttonTag%9;
         
         
-        
-        switch (modded) {
-            case 0:
-                sender.backgroundColor = [self colorFromHexString:@"#FF5E3A"];
-                sender.tag += 100;
-                break;
-            case 1:
-                sender.backgroundColor = [self colorFromHexString:@"#52EDC7" ];
-                sender.tag += 100;
-                break;
-            case 2:
-                sender.backgroundColor = [self colorFromHexString:@"#C644FC" ];
-                sender.tag += 100;
-                break;
-            case 3:
-                sender.backgroundColor = [self colorFromHexString:@"#FFCC00" ];
-                sender.tag += 100;
-                break;
-            case 4:
-                sender.backgroundColor = [self colorFromHexString:@"#5AD427" ];
-                sender.tag += 100;
-                break;
-            case 5:
-                sender.backgroundColor = [self colorFromHexString:@"#8E8E93" ];
-                sender.tag += 100;
-                break;
-            case 6:
-                sender.backgroundColor = [self colorFromHexString:@"#007AFF" ];
-                sender.tag += 100;
-                break;
-            case 7:
-                sender.backgroundColor = [self colorFromHexString:@"#FF4981" ];
-                sender.tag += 100;
-                break;
-            case 8:
-                sender.backgroundColor = [self colorFromHexString:@"#81F3FD" ];
-                sender.tag += 100;
-                break;
-                
-            default:
-                break;
+        if (sender.tag<4 ) {
+            sender.backgroundColor = [self colorFromHexString:@"#DC143C"];
+            sender.tag += 100;
         }
+        else if(sender.tag <10){
+            sender.backgroundColor = [self colorFromHexString:@"#44743d"];
+            sender.tag += 100;
+        }
+        else if(sender.tag <13){
+            sender.backgroundColor = [self colorFromHexString:@"#686868"];
+            sender.tag += 100;
+        }
+        else if(sender.tag <16){
+            sender.backgroundColor = [self colorFromHexString:@"#ffd700"];
+            sender.tag += 100;
+        }
+        else if(sender.tag <23){
+            sender.backgroundColor = [self colorFromHexString:@"#C40000"];
+            sender.tag += 100;
+        }
+        else if(sender.tag <27){
+            sender.backgroundColor = [self colorFromHexString:@"#663300"];
+            sender.tag += 100;
+        }
+        
+        
+//        
+//        switch (modded) {
+//            case 0:
+//                sender.backgroundColor = [self colorFromHexString:@"#FF5E3A"];
+//                sender.tag += 100;
+//                break;
+//            case 1:
+//                sender.backgroundColor = [self colorFromHexString:@"#52EDC7" ];
+//                sender.tag += 100;
+//                break;
+//            case 2:
+//                sender.backgroundColor = [self colorFromHexString:@"#C644FC" ];
+//                sender.tag += 100;
+//                break;
+//            case 3:
+//                sender.backgroundColor = [self colorFromHexString:@"#FFCC00" ];
+//                sender.tag += 100;
+//                break;
+//            case 4:
+//                sender.backgroundColor = [self colorFromHexString:@"#5AD427" ];
+//                sender.tag += 100;
+//                break;
+//            case 5:
+//                sender.backgroundColor = [self colorFromHexString:@"#8E8E93" ];
+//                sender.tag += 100;
+//                break;
+//            case 6:
+//                sender.backgroundColor = [self colorFromHexString:@"#007AFF" ];
+//                sender.tag += 100;
+//                break;
+//            case 7:
+//                sender.backgroundColor = [self colorFromHexString:@"#FF4981" ];
+//                sender.tag += 100;
+//                break;
+//            case 8:
+//                sender.backgroundColor = [self colorFromHexString:@"#81F3FD" ];
+//                sender.tag += 100;
+//                break;
+//                
+//            default:
+//                break;
+//        }
     }
     
     // index = 1234;
@@ -1056,10 +1240,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if(indexPath.row == 0 && indexPath.section == 0)
+    if((indexPath.row == 0 && indexPath.section == 0) || (indexPath.section == 1 && indexPath.row == 2))
         return 85;
-    else if(indexPath.section == 10){
-        return 350;
+    else if(indexPath.section == 10 || (indexPath.section == 4 && indexPath.row == 1)){
+        return 370;
     }
         else
         {
@@ -1097,18 +1281,66 @@
     [self cancelDateSet];
 
     
-    if(indexPath.row == 0 && indexPath.section == 1)
+    if(indexPath.row == 3 && indexPath.section == 1)
     {
-                self.pickerArray = self.classArray;
+        self.pickerArray = self.classArray;
+        self.classBool = !self.classBool;
         
-        [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        [self createPickerAndShow];
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:4 inSection:1]];
+        
+        
+        if (!self.classBool) {
+            [self.tableview beginUpdates];
+            
+            [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            
+            
+            [self.tableview endUpdates];
+        }
+        else{
+            [self.tableview beginUpdates];
+            
+            [self.tableview deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            
+            
+            
+            [self.tableview endUpdates];
+            
+        }
+        
+        //[self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        //[self createPickerAndShow];
     }
     else if(indexPath.row == 0 && indexPath.section == 3){
         self.pickerArray = self.appearanceArray;
-        [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        self.appearanceBool = !self.appearanceBool;
+        
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:3]];
+        
+        
+        if (!self.appearanceBool) {
+            [self.tableview beginUpdates];
+            
+            [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            
+            
+            [self.tableview endUpdates];
+        }
+        else{
+            [self.tableview beginUpdates];
+            
+            [self.tableview deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            
+            
+            
+            [self.tableview endUpdates];
+            
+        }
+        //[self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 
-        [self createPickerAndShow];
+        //[self createPickerAndShow];
         
         
     }
@@ -1116,120 +1348,110 @@
     
     else if((indexPath.row == 0 || indexPath.row == 1) && indexPath.section == 5){
         self.pickerArray = self.mouthfeelArray;
-        [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        self.mouthfeelBool = !self.mouthfeelBool;
+        
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:5]];
+        
+        
+        if (!self.mouthfeelBool) {
+            [self.tableview beginUpdates];
+            
+            [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            
+            
+            [self.tableview endUpdates];
+        }
+        else{
+            [self.tableview beginUpdates];
+            
+            [self.tableview deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            
+            
+            
+            [self.tableview endUpdates];
+            
+        }
+        //[self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 
-        [self createPickerAndShow];
+        //[self createPickerAndShow];
         
     }
     
         
         else if(indexPath.row == 0 && indexPath.section == 6){
         self.pickerArray = self.finishArray;
-        [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-
-        [self createPickerAndShow];
-        
-
-        
-    }
-        else if(indexPath.row == 0 && indexPath.section == 7){
-            self.pickerArray = self.evaluationArray;
-            [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-
-            [self createPickerAndShow];
-            
-            
-        }
-        else if (indexPath.section == 4 && indexPath.row == 0){
-            self.sectBool = !self.sectBool;
+            self.finishBool = !self.finishBool;
             
             NSMutableArray *indexPaths = [NSMutableArray array];
-            for (int i = 0; i < 9; i++) {
-                [indexPaths addObject:[NSIndexPath indexPathForRow:i+1 inSection:4]];
-            }
+            [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:6]];
             
-            if (!self.sectBool) {
+            
+            if (!self.finishBool) {
                 [self.tableview beginUpdates];
                 
-                [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+                [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
                 
                 
-                UITextField *testTextField = self.typeTextFieldView;
                 [self.tableview endUpdates];
             }
             else{
                 [self.tableview beginUpdates];
                 
-                [self.tableview deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+                [self.tableview deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
                 
                 
                 
                 [self.tableview endUpdates];
                 
             }
+        //[self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+
+        //[self createPickerAndShow];
+        
+
+        
+    }
+        else if(indexPath.row == 0 && indexPath.section == 4){
+            self.sectBool = !self.sectBool;
             
-        }
-        else if (indexPath.section == 4 && indexPath.row == 1){
-            self.pickerArray = self.berryishArray;
-            [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+            NSMutableArray *indexPaths = [NSMutableArray array];
+            [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:4]];
             
-            [self createPickerAndShow];
             
-        }
-        else if (indexPath.section == 4 && indexPath.row == 2){
-            self.pickerArray = self.floralArray;
-            [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+            if (!self.sectBool) {
+//                [self.tableview beginUpdates];
+//                
+//                [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+//                
+//                
+//                [self.tableview endUpdates];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    //[self.tableview reloadData];
+                    [self.tableview beginUpdates];
+                    
+                    [self.tableview insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:4]]
+                                          withRowAnimation:UITableViewRowAnimationRight];
+                    [self.tableview endUpdates];
+                    //[self.tableview reloadData];
+                });
+                
+                
+            }
+            else{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    //[self.tableview reloadData];
+                    [self.tableview beginUpdates];
+                    
+                    [self.tableview deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:4]]
+                                          withRowAnimation:UITableViewRowAnimationRight];
+                    [self.tableview endUpdates];
+                    //[self.tableview reloadData];
+                });
+                
+            }
             
-            [self createPickerAndShow];
-            
-        }
-        else if (indexPath.section == 4 && indexPath.row == 3){
-            self.pickerArray = self.fruityArray;
-            [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-            
-            [self createPickerAndShow];
-            
-        }
-        else if (indexPath.section == 4 && indexPath.row == 4){
-            self.pickerArray = self.herbalArray;
-            [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-            
-            [self createPickerAndShow];
-            
-        }
-        else if (indexPath.section == 4 && indexPath.row == 5){
-            self.pickerArray = self.nuttyArray;
-            [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-            
-            [self createPickerAndShow];
-            
-        }
-        else if (indexPath.section == 4 && indexPath.row == 6){
-            self.pickerArray = self.spicyArray;
-            [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-            
-            [self createPickerAndShow];
-            
-        }
-        else if (indexPath.section == 4 && indexPath.row == 7){
-            self.pickerArray = self.sweetArray;
-            [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-            
-            [self createPickerAndShow];
-            
-        }
-        else if (indexPath.section == 4 && indexPath.row == 8){
-            self.pickerArray = self.veggieArray;
-            [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-            
-            [self createPickerAndShow];
-            
-        }
-        else if (indexPath.section == 4 && indexPath.row == 9){
-            self.pickerArray = self.woodyArray;
-            [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-            
-            [self createPickerAndShow];
+        
             
         }
         else if (indexPath.section == 9)   {
@@ -1244,7 +1466,7 @@
 
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 11;
+    return 8;
     
 }
 
@@ -1515,8 +1737,8 @@
     
     NSData *leftImageData = UIImageJPEGRepresentation(leftImage, 1);
     NSData *rightImageData = UIImageJPEGRepresentation(rightImage, 1);
-    PFFile *leftImageFile = [PFFile fileWithName:@"Image.jpg" data:leftImageData];
-    PFFile *rightImageFile = [PFFile fileWithName:@"Image.jpg" data:rightImageData];
+    PFFile *leftImageFile = [PFFile fileWithName:@"icon-camera-128.png" data:leftImageData];
+    PFFile *rightImageFile = [PFFile fileWithName:@"icon-camera-128.png" data:rightImageData];
     
     WDTasting[@"leftImage"] = leftImageFile;
     WDTasting[@"rightImage"] = rightImageFile;
@@ -2078,8 +2300,31 @@
     UITableViewCell *cell   = [self.tableview cellForRowAtIndexPath:self.ratingCell];
     
     
+    
     NSString *inStr = [NSString stringWithFormat: @"%ld", (long)self.ratingSlider.value];
-    cell.detailTextLabel.text =  inStr;
+    self.ratingLabel.text =inStr;
+    
+    int rating = [inStr intValue];
+    
+    if (rating <= 70) {
+        cell.detailTextLabel.text =@"Faulty wine";
+    }else if(rating <=76){
+        cell.detailTextLabel.text = @"OK marginal wine but undistinguished.";
+    }else if(rating <=82){
+        cell.detailTextLabel.text = @"A good “tuesday night”, wine for reliable service.";
+    }else if(rating <=88){
+        cell.detailTextLabel.text = @"A pleasurable wine of good quality.";
+    }else if(rating <=94){
+        cell.detailTextLabel.text = @"This is a Distinguished wine for special occasions.";
+    }else{
+        cell.detailTextLabel.text = @"Outstanding Wine! Met highest expectations.";
+
+    }
+    
+   
+    
+    
+    
     
     
     

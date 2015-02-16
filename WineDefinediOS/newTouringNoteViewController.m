@@ -119,13 +119,11 @@
     [super viewDidLoad];
     
     
-    UIBarButtonItem *anotherButton2 = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonPressed:)];
-    anotherButton2.tintColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem = anotherButton2;
+    
     
     NSArray *itemArray = [NSArray arrayWithObjects: @"Tasting", @"Cellaring", @"Touring", nil];
     self.viewSegments = [[UISegmentedControl alloc] initWithItems:itemArray];
-    self.viewSegments.backgroundColor = [UIColor redColor];
+    self.viewSegments.backgroundColor = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
     self.viewSegments.tintColor = [UIColor whiteColor];
     
     self.viewSegments.frame = CGRectMake(0, 0, self.view.frame.size.width-2, 30);
@@ -135,8 +133,8 @@
     
     //self.navigationController.navigationItem.titleView = self.viewSegments;
     UIToolbar *toolbar = [[UIToolbar alloc] init];
-    toolbar.tintColor = [UIColor redColor];
-    toolbar.barTintColor = [UIColor redColor];
+    toolbar.tintColor = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
+    toolbar.barTintColor = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
     toolbar.frame = CGRectMake(0, 64, self.view.frame.size.width, 35);
     
     [self.view addSubview:toolbar];
@@ -334,7 +332,7 @@
                 [cell.contentView addSubview:leftLabel];
                 
                 
-                UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"camera.jpg"]];
+                UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-camera-128.png"]];
                 cell.textLabel.text = @"Add Photo";
                 imageView.frame = CGRectMake(self.view.center.x +70, 38, cell.frame.size.height-10, cell.frame.size.height-10);
                 
@@ -344,7 +342,7 @@
                 self.rightImage = imageView;
                 [cell.contentView addSubview:self.rightImage];
                 
-                UIImageView *newImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"camera.jpg"]];
+                UIImageView *newImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-camera-128.png"]];
                 cell.textLabel.text = @"Add Photo";
                 newImageView.frame = CGRectMake(310, 48, cell.frame.size.height-10, cell.frame.size.height-10);
                 self.leftImage = newImageView;
@@ -785,7 +783,7 @@
         }
         
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.textColor = [UIColor redColor];
+        cell.textLabel.textColor = [UIColor colorWithRed:233/255.0 green:0 blue:18/255.0 alpha:1];
         cell.textLabel.text = @"Final Edit";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
