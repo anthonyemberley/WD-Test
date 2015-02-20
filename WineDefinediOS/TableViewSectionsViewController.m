@@ -546,6 +546,17 @@
         
         return cell;
 
+    }else if(section == 1 && row == 4){
+        //class picker cell
+        static NSString *CellIdentifier = @"PickerCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        
+        
+        return cell;
     }
     
     else if (section == 2 && row == 0){
@@ -612,7 +623,7 @@
         }
         
     
-    else if(section == 3){
+    else if(section == 3 && row == 0){
         
             static NSString *CellIdentifier = @"ColorCell";
             
@@ -625,6 +636,17 @@
             cell.textLabel.text = @"Appearance (optional)";
             self.appearanceCell = indexPath;
             return cell;
+    }else if(section == 3 && row == 1){
+        //appearance picker cell
+        static NSString *CellIdentifier = @"PickerCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        
+        
+        return cell;
     }
     
     else if(section == 4){
@@ -794,6 +816,16 @@
             return cell;
         }
         else if (row ==1){
+            //mouthfeel picker cell
+            static NSString *CellIdentifier = @"PickerCell";
+            
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            }
+            
+            
+            return cell;
             
         }
         
@@ -812,6 +844,17 @@
             cell.textLabel.text  = @"Finish (select one, refine by editing)";
             self.finishCell = indexPath;
             return cell;
+    }else if(section == 6 && row == 1){
+        //finish picker cell
+        static NSString *CellIdentifier = @"PickerCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        
+        
+        return cell;
     }
     
     else if(section == 7){
@@ -1239,16 +1282,20 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    NSInteger section = indexPath.section;
+    NSInteger row = indexPath.row;
     if((indexPath.row == 0 && indexPath.section == 0) || (indexPath.section == 1 && indexPath.row == 2))
         return 85;
     else if(indexPath.section == 10 || (indexPath.section == 4 && indexPath.row == 1)){
         return 370;
     }
-        else
-        {
-            return 44;
-        }
+    else if(((section == 3 ||section == 5 ||section == 6)&&row ==1) || (section == 1 && row ==4) ){
+        return 220;
+    }
+    else
+    {
+        return 44;
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tv titleForFooterInSection:(NSInteger)section
@@ -1276,7 +1323,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.view endEditing:YES];
     UITableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
-    [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    //[self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     self.currentIndexPath = indexPath;
     [self cancelDateSet];
 
@@ -1431,7 +1478,7 @@
                     [self.tableview beginUpdates];
                     
                     [self.tableview insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:4]]
-                                          withRowAnimation:UITableViewRowAnimationRight];
+                                          withRowAnimation:UITableViewRowAnimationFade];
                     [self.tableview endUpdates];
                     //[self.tableview reloadData];
                 });
@@ -1444,7 +1491,7 @@
                     [self.tableview beginUpdates];
                     
                     [self.tableview deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:4]]
-                                          withRowAnimation:UITableViewRowAnimationRight];
+                                          withRowAnimation:UITableViewRowAnimationFade];
                     [self.tableview endUpdates];
                     //[self.tableview reloadData];
                 });

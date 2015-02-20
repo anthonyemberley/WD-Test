@@ -52,6 +52,9 @@
 @property (nonatomic, strong) NSIndexPath *ratingCell;
 @property (nonatomic, strong) NSIndexPath *finalEditCell;
 
+@property (nonatomic, strong) NSIndexPath *summaryCell;
+
+
 
 @property UILabel  *ratingLabel;
 
@@ -101,6 +104,14 @@
 
 
 @property(assign) BOOL sectBool;
+@property(assign) BOOL classBool;
+@property(assign) BOOL howManyBottlesBool;
+@property(assign) BOOL ageBool;
+@property(assign) BOOL expectationsBool;
+@property(assign) BOOL appearanceBool;
+@property(assign) BOOL mouthfeelBool;
+@property(assign) BOOL finishBool;
+
 
 
 
@@ -164,6 +175,13 @@
 //    self.tableview.dataSource = self;
     
     self.sectBool = true;
+    self.classBool = true;
+    self.howManyBottlesBool= true;
+    self.ageBool= true;
+    self.expectationsBool= true;
+    self.appearanceBool= true;
+    self.mouthfeelBool= true;
+    self.finishBool= true;
     
     self.wineryTextFieldView.delegate = self;
     self.typeTextFieldView.delegate = self;
@@ -513,6 +531,18 @@
             
             
         }
+    else if(section == 1 && row == 3){
+        //class picker cell
+        static NSString *CellIdentifier = @"PickerCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        
+        
+        return cell;
+    }
         
     else if (section == 2 && row == 0){
         static NSString *CellIdentifier = @"VintageCell";
@@ -640,12 +670,23 @@
         
         
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
-        cell.textLabel.text = @"How Many Bottles of this wine are being added:";
+        cell.textLabel.text = @"How many bottles of this wine are being added:";
         
         
         return cell;
         
         
+    }else if(section == 3 && row == 2){
+        //how many picker cell
+        static NSString *CellIdentifier = @"PickerCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        
+        
+        return cell;
     }
     
     else if(section == 4){
@@ -685,6 +726,20 @@
             cell.textLabel.text = @"Age This Wine for ______ years";
             
             return cell;
+        }else if( row == 2){
+            
+            
+                //age  picker cell
+                static NSString *CellIdentifier = @"PickerCell";
+                
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                if (cell == nil) {
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+                }
+                
+                
+                return cell;
+            
         }
         
         
@@ -801,7 +856,7 @@
         
     }
     
-    else if(section == 6){
+    else if(section == 6 && row == 0){
         
         static NSString *CellIdentifier = @"CellaredExpectationsCell";
         
@@ -813,6 +868,17 @@
         
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
         cell.textLabel.text = @"Cellared wine’s expectations: (choose 1 of 3):";
+        
+        
+        return cell;
+    }else if(section == 6 && row == 1){
+        //expectation picker cell
+        static NSString *CellIdentifier = @"PickerCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
         
         
         return cell;
@@ -904,6 +970,17 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
         cell.textLabel.text = @"APPEARANCE (choose 1 of 3 lines):";
+        return cell;
+    }else if(section == 9 && row == 1){
+        //appearance picker cell
+        static NSString *CellIdentifier = @"PickerCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        
+        
         return cell;
     }
     
@@ -1059,6 +1136,75 @@
         return cell;
 
     }
+    else if (section == 11 && row == 0){
+        
+        
+        
+        
+        self.mouthfeelCell = indexPath;
+        
+        static NSString *CellIdentifier = @"MouthfeelCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        cell.textLabel.text = @"MOUTHFEEL/Balance (choose 1 of 6 lines):";
+        return cell;
+    }else if(section == 11 && row == 1){
+        //mouthfeel picker cell
+        static NSString *CellIdentifier = @"PickerCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        
+        
+        return cell;
+    }else if (section == 12 && row == 0){
+        
+        
+        
+        
+        self.finishCell = indexPath;
+        
+        static NSString *CellIdentifier = @"FinishCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        cell.textLabel.text = @"FINISH (choose 1 of 4 lines):";
+        return cell;
+    }else if(section == 12 && row == 1){
+        //finish picker cell
+        static NSString *CellIdentifier = @"PickerCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        
+        
+        return cell;
+    }else if (section == 13 && row == 0){
+        
+        
+        
+        
+        self.summaryCell = indexPath;
+        
+        static NSString *CellIdentifier = @"SummaryCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        cell.textLabel.text = @"Summary";
+        return cell;
+    }
+
     
     
     else{
@@ -1101,9 +1247,64 @@
     }
    
     else if (section == 1 ){
-        return 3;
+        if (self.classBool){
+            return 3;
+        }
+        else{
+            return 4;
+        }
+    }else if (section == 3 ){
+        if (self.howManyBottlesBool){
+            return 2;
+        }
+        else{
+            return 3;
+        }
+    }else if (section == 4 ){
+        if (self.ageBool){
+            return 2;
+        }
+        else{
+            return 3;
+        }
+    }else if (section == 6 ){
+        if (self.expectationsBool){
+            return 1;
+        }
+        else{
+            return 2;
+        }
+    }else if (section == 9 ){
+        if (self.appearanceBool){
+            return 1;
+        }
+        else{
+            return 2;
+        }
     }
-    else if (section == 4 || section == 3 || section == 10){
+    else if (section == 11 ){
+        if (self.mouthfeelBool){
+            return 1;
+        }
+        else{
+            return 2;
+        }
+    }else if (section == 12 ){
+        if (self.finishBool){
+            return 1;
+        }
+        else{
+            return 2;
+        }
+    }else if (section == 10){
+        if (self.sectBool){
+            return 1;
+        }
+        else{
+            return 2;
+        }
+    }
+    else if (section == 4 || section == 3) {
         return 2;
     }
     else if (section == 5){
@@ -1122,12 +1323,19 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSInteger row = indexPath.row;
+    NSInteger section = indexPath.section;
     
     if((indexPath.row == 0 && indexPath.section == 0) || indexPath.section == 8  ){
         return 85;
     }
     else if(indexPath.section == 10 && indexPath.row == 1){
         return 370;
+    }
+    else if(indexPath.section == 13){
+        return 200;
+    }else if(((section == 6 || section == 9 || section == 11 || section == 12) && row == 1) || ((section == 3 || section == 4) && row == 2)|| (section == 1 && row == 3)){
+        return 220;
     }
     else
     {
@@ -1166,58 +1374,352 @@
     [self.view endEditing:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UITableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
-    [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    //[self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     self.currentIndexPath = indexPath;
     [self cancelDateSet];
     
     
     if(indexPath.row == 2 && indexPath.section == 1)
     {
-        self.pickerArray = self.classArray;
+        //self.pickerArray = self.classArray;
+        self.classBool = !self.classBool;
+        cell.detailTextLabel.text = @"testing";
+        self.classString = @"testing";
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:3 inSection:1]];
         
-        [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        [self createPickerAndShow];
+        
+        if (!self.classBool) {
+            //                [self.tableview beginUpdates];
+            //
+            //                [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            //
+            //
+            //                [self.tableview endUpdates];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview insertRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+            
+        }
+        else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview deleteRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+        }
+        
+        
     }
-    else if(indexPath.row == 0 && indexPath.section == 3){
-        self.pickerArray = self.appearanceArray;
-        [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    else if(indexPath.row == 1 && indexPath.section == 3)
+    {
+        //self.pickerArray = self.classArray;
+        self.howManyBottlesBool = !self.howManyBottlesBool;
         
-        [self createPickerAndShow];
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:2 inSection:3]];
         
         
+        if (!self.howManyBottlesBool) {
+            //                [self.tableview beginUpdates];
+            //
+            //                [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            //
+            //
+            //                [self.tableview endUpdates];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview insertRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+            
+        }
+        else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview deleteRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+        }
+        
+        
+    }else if(indexPath.row == 1 && indexPath.section == 4)
+    {
+        //self.pickerArray = self.classArray;
+        self.ageBool = !self.ageBool;
+        
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:2 inSection:4]];
+        
+        
+        if (!self.ageBool) {
+            //                [self.tableview beginUpdates];
+            //
+            //                [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            //
+            //
+            //                [self.tableview endUpdates];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview insertRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+            
+        }
+        else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview deleteRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+        }
+        
+        
+    }else if(indexPath.row == 0 && indexPath.section == 6)
+    {
+        //self.pickerArray = self.classArray;
+        self.expectationsBool = !self.expectationsBool;
+        
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:6]];
+        
+        
+        if (!self.expectationsBool) {
+            //                [self.tableview beginUpdates];
+            //
+            //                [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            //
+            //
+            //                [self.tableview endUpdates];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview insertRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+            
+        }
+        else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview deleteRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+        }
+        
+        
+    }else if(indexPath.row == 0 && indexPath.section == 9)
+    {
+        //self.pickerArray = self.classArray;
+        self.appearanceBool = !self.appearanceBool;
+        
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:9]];
+        
+        
+        if (!self.appearanceBool) {
+            //                [self.tableview beginUpdates];
+            //
+            //                [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            //
+            //
+            //                [self.tableview endUpdates];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview insertRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+            
+        }
+        else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview deleteRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+        }
+        
+        
+    }else if(indexPath.row == 0 && indexPath.section == 11)
+    {
+        //self.pickerArray = self.classArray;
+        self.mouthfeelBool = !self.mouthfeelBool;
+        
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:11]];
+        
+        
+        if (!self.mouthfeelBool) {
+            //                [self.tableview beginUpdates];
+            //
+            //                [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            //
+            //
+            //                [self.tableview endUpdates];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview insertRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+            
+        }
+        else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview deleteRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+        }
+        
+        
+    }else if(indexPath.row == 0 && indexPath.section ==12)
+    {
+        //self.pickerArray = self.classArray;
+        self.finishBool = !self.finishBool;
+        
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:12]];
+        
+        
+        if (!self.finishBool) {
+            //                [self.tableview beginUpdates];
+            //
+            //                [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            //
+            //
+            //                [self.tableview endUpdates];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview insertRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+            
+        }
+        else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview deleteRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+        }
+        
+        
+    }
+        else if(indexPath.row == 0 && indexPath.section == 10){
+        self.sectBool = !self.sectBool;
+        
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:10]];
+        
+        
+        if (!self.sectBool) {
+            //                [self.tableview beginUpdates];
+            //
+            //                [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            //
+            //
+            //                [self.tableview endUpdates];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview insertRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+            
+        }
+        else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview deleteRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+        }
     }
     
-    
-    else if((indexPath.row == 0 || indexPath.row == 1) && indexPath.section == 4){
-        self.pickerArray = self.mouthfeelArray;
-        [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
         
-        [self createPickerAndShow];
-        
-    }
-    
-    
-    else if(indexPath.row == 0 && indexPath.section == 6){
-        self.pickerArray = self.finishArray;
-        [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-        
-        [self createPickerAndShow];
-        
-        
-        
-    }
-    else if (indexPath.section == 5 && indexPath.row == 0){
-
-        self.pickerArray = self.whyArray;
-        [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-        
-        [self createPickerAndShow];
-        
-        
-    }
 
 //    else if (indexPath.section == 7)   {
-//        
+//
 //        //segue for final edit of cellaring
 //        [self performSegueWithIdentifier:@"cellaringFinalEditSegue" sender:self];
 //    }
@@ -1230,7 +1732,7 @@
 
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 11;
+    return 14;
     
 }
 
@@ -1315,9 +1817,11 @@
 }
 
 -(void)checkSavebutton{
+    NSString *testString = self.classString;
+    NSString *test1String = self.wineryTextFieldView.text;
+    NSString *test2String = self.typeTextFieldView.text;
     
-    
-    if (self.classString.length >= 1  && ([self.wineryTextFieldView.text length] >= 1 ) && ([self.typeTextFieldView.text length] >= 1 ) && (self.evaluationString.length >=1)) {
+    if (self.classString.length >= 1  && ([self.wineryTextFieldView.text length] >= 1 ) && ([self.typeTextFieldView.text length] >= 1 ) ) {
         self.rowIsSelectable = 1;
         self.navigationItem.rightBarButtonItem.enabled =YES;
     }
@@ -1616,7 +2120,7 @@
     else{
         WDCellaring[@"evaluation"] = [NSNull null];
     }
-    WDCellaring[@"evaluationString"] = self.evaluationString;
+    //WDCellaring[@"evaluationString"] = self.evaluationString;
     [WDCellaring setObject:[NSDate date] forKey:@"myDate"];
     
     NSData *leftImageData = UIImageJPEGRepresentation(leftImage, 1);
@@ -1627,9 +2131,10 @@
     WDCellaring[@"leftImage"] = leftImageFile;
     WDCellaring[@"rightImage"] = rightImageFile;
     
-    
-    [WDCellaring pinInBackground];
-    [WDCellaring saveInBackground];
+    //[WDCellaring[@"leftImage"] pinInBackground];
+    //[WDCellaring[@"rightImage"] pinInBackground];
+    [WDCellaring pinInBackgroundWithName:@"WDCellaring"];
+    [WDCellaring saveEventually];
     newCellaringNoteViewController *vc2 = [self.storyboard instantiateViewControllerWithIdentifier:@"newCellaringNoteViewController"];
     
     

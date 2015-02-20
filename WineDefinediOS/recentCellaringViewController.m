@@ -159,6 +159,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"WDCellaring"];
     PFUser *currentUser = [PFUser currentUser];
     //[query fromLocalDatastore];
+    [query fromPinWithName:@"WDCellaring"];
     [query whereKey:@"userName" equalTo:currentUser.username];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -171,7 +172,7 @@
                 //[object deleteInBackground];
                 
             }
-            //[PFObject pinAllInBackground:self.tastingObjectsArray];
+            [PFObject pinAllInBackground:self.tastingObjectsArray];
             //[PFObject deleteAll:self.tastingObjectsArray];
             
             self.filteredArray = [NSMutableArray arrayWithCapacity:[self.tastingObjectsArray count]];

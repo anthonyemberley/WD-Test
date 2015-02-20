@@ -51,10 +51,11 @@
 @property (nonatomic, strong) NSIndexPath *finalEditCell;
 @property (nonatomic, strong) NSIndexPath *eventCell;
 @property (nonatomic, strong) NSIndexPath *cityCell;
+@property (nonatomic, strong) NSIndexPath *bottlesCell;
 
 
 
-
+@property UILabel  *ratingLabel;
 
 //aromas and flavors cells
 @property (nonatomic, strong) NSIndexPath *berryishCell;
@@ -99,6 +100,10 @@
 
 @property(assign) BOOL sectBool;
 
+@property(assign) BOOL wineNumberBool;
+
+@property(assign) BOOL classBool;
+
 
 
 @property (nonatomic, retain) UITextField *wineryTextFieldView;
@@ -119,7 +124,10 @@
     [super viewDidLoad];
     
     
-    
+    UILabel *tempLabel = [[UILabel alloc] init];
+    self.ratingLabel = tempLabel;
+    self.ratingLabel.text = @"70";
+    self.ratingLabel.font =[UIFont systemFontOfSize:20];
     
     NSArray *itemArray = [NSArray arrayWithObjects: @"Tasting", @"Cellaring", @"Touring", nil];
     self.viewSegments = [[UISegmentedControl alloc] initWithItems:itemArray];
@@ -148,6 +156,8 @@
     
     
     self.sectBool = true;
+    self.wineNumberBool = true;
+    self.classBool = true;
     
     self.wineryTextFieldView.delegate = self;
     self.typeTextFieldView.delegate = self;
@@ -382,7 +392,85 @@
             
         }
     }
-    if (row == 0 && section == 1){
+    if (section == 1) {
+        if (row == 0){
+            static NSString *CellIdentifier = @"EventCell";
+            self.eventCell = indexPath;
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+                self.whenCell2 = indexPath;
+                //cell.textLabel.text = @"When/Where Tasted";
+                UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(cell.frame.origin.x + 15, cell.frame.origin.y, cell.frame.size.width,40)];
+                textField.placeholder = @"Event: *";
+                textField.adjustsFontSizeToFitWidth = YES;
+                textField.returnKeyType = UIReturnKeyDone;
+                
+                textField.delegate = self;
+                [textField addTarget:self
+                              action:@selector(textFieldDidChange:)
+                    forControlEvents:UIControlEventEditingChanged];
+                self.eventTextFieldView  = textField;
+                
+                [cell.contentView addSubview:self.eventTextFieldView];
+            }
+            
+            
+            
+            return cell;
+            
+        }else if (row == 1){
+            static NSString *CellIdentifier = @"CityCell";
+            self.whereCell = indexPath;
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+                
+                //cell.textLabel.text = @"When/Where Tasted";
+                UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(cell.frame.origin.x + 15, cell.frame.origin.y, cell.frame.size.width,40)];
+                textField.placeholder = @"Place:";
+                textField.adjustsFontSizeToFitWidth = YES;
+                textField.returnKeyType = UIReturnKeyDone;
+                
+                textField.delegate = self;
+                [textField addTarget:self
+                              action:@selector(textFieldDidChange:)
+                    forControlEvents:UIControlEventEditingChanged];
+                self.cityTextFieldView  = textField;
+                
+                [cell.contentView addSubview:self.cityTextFieldView];
+            }
+            
+            
+            
+            return cell;
+
+            
+        }else if(row == 2){
+            static NSString *CellIdentifier = @"WhenNotedCell";
+            
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            }
+          
+            cell.textLabel.text = @"When Noted:";
+            NSDate* now = [NSDate date];
+            NSDateFormatter* df = [[NSDateFormatter alloc] init];
+            [df setDateStyle:NSDateFormatterMediumStyle];
+            [df setTimeStyle:NSDateFormatterShortStyle];
+            NSString* myString = [df stringFromDate:now];
+            cell.detailTextLabel.text = myString;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+            return cell;
+        }
+        
+        
+        
+    }
+    
+    if (row == 2 && section == 3){
             self.classCell = indexPath;
             static NSString *CellIdentifier = @"ClassCell";
             
@@ -397,8 +485,23 @@
             
             return cell;
             
+    }else if (row == 0 && section == 2){
+        self.bottlesCell = indexPath;
+        static NSString *CellIdentifier = @"BottlesCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        
+        
+        
+        cell.textLabel.text = @"Wine ____ *";
+        
+        return cell;
+        
     }
-    else if (row == 1 && section == 1){
+    else if (row == 0 && section == 3){
             static NSString *CellIdentifier = @"WineryCell";
             
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -429,7 +532,7 @@
             
             
     }
-    else if (row == 2 && section ==1){
+    else if (row == 1 && section ==3){
             static NSString *CellIdentifier = @"TypeCell";
             
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -455,36 +558,10 @@
             return cell;
             
     }
-    else if (row == 3 && section == 1){
-            static NSString *CellIdentifier = @"EventCell";
-            self.eventCell = indexPath;
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-                self.whenCell2 = indexPath;
-                //cell.textLabel.text = @"When/Where Tasted";
-                UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(cell.frame.origin.x + 15, cell.frame.origin.y, cell.frame.size.width,40)];
-                textField.placeholder = @"Event: *";
-                textField.adjustsFontSizeToFitWidth = YES;
-                textField.returnKeyType = UIReturnKeyDone;
-                
-                textField.delegate = self;
-                [textField addTarget:self
-                              action:@selector(textFieldDidChange:)
-                    forControlEvents:UIControlEventEditingChanged];
-                self.eventTextFieldView  = textField;
-                
-                [cell.contentView addSubview:self.eventTextFieldView];
-            }
-            
-            
-            
-            return cell;
-            
-    }
+    
         
     
-    else if (section == 2 && row == 0){
+    else if (section == 4 && row == 0){
         static NSString *CellIdentifier = @"VintageCell";
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -513,7 +590,7 @@
     
     
     
-    else if (section == 2 && row == 1){
+    else if (section == 5 && row == 1){
         static NSString *CellIdentifier = @"CityCell";
         self.whereCell = indexPath;
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -542,7 +619,7 @@
     }
         
     
-    else if(section == 3){
+    else if(section == 4){
         
         static NSString *CellIdentifier = @"ColorCell";
         
@@ -686,31 +763,38 @@
     }
     else if(section ==5){
         if (row == 0){
-            static NSString *CellIdentifier = @"MouthFeelCell1";
+            self.ratingCell = indexPath;
+            
+            static NSString *CellIdentifier = @"RatingCell";
             
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+                UISlider *slider = [[UISlider alloc] init];
+                slider.minimumValue = 70;
+                slider.maximumValue = 100;
+                
+                self.ratingLabel.frame = CGRectMake(15, 0, 40, 15);
+                cell.detailTextLabel.adjustsFontSizeToFitWidth  = YES;
+                cell.accessoryView = self.ratingLabel;
+                [cell.contentView addSubview:slider];
+                //slider.bounds = CGRectMake(30, 0, cell.contentView.bounds.size.width - 100, slider.bounds.size.height -10);
+                slider.frame = CGRectMake(slider.frame.origin.x-20, slider.frame.origin.y, cell.contentView.frame.size.width - 170 , slider.frame.size.height);
+                slider.center = CGPointMake(CGRectGetMidX(cell.contentView.bounds) +30, 30);
+                //slider.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+                [slider addTarget:self
+                           action:@selector(sliderValueChanged:)
+                 forControlEvents:UIControlEventValueChanged];
+                self.ratingSlider = slider;
+                
             }
             
+            cell.textLabel.text = @"My Rating";
             
-            cell.textLabel.text = @"Mouthfeel (select one, refine by editing)";
-            self.mouthfeelCell = indexPath;
+            
             return cell;
         }
-        else if (row ==1){
-            static NSString *CellIdentifier = @"MouthFeelCell2";
-            
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-            }
-            
-            
-            cell.textLabel.text =@"Mouthfeel (select one, refine by editing)";
-            self.mouthfeelCell2 = indexPath;
-            return cell;
-        }
+        
         
     }
     
@@ -831,20 +915,26 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section ==1){
-        return 4;
+        return 3;
     }
-    else if (section == 2){
-        return 2;
+    else if (section == 3){
+        if (self.classBool){
+            return 3;
+        }
+        else{
+            return 4;
+        }
     }
-    else if (section == 4){
-        if (self.sectBool){
+    else if (section ==2){
+        if (self.wineNumberBool){
             return 1;
         }
         else{
-            return 10;
+            return 2;
         }
     }
-    else if(section == 5){
+    
+    else if(section == 6){
         return 2;
     }
     else{
@@ -860,8 +950,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if(indexPath.row == 0 && indexPath.section == 0)
+    if(indexPath.row == 0 && indexPath.section == 0){
         return 85;
+    }else if(indexPath.section == 5){
+        return 85;
+    }else if((indexPath.section == 2 && indexPath.row ==1) || (indexPath.row == 3 && indexPath.section == 3)){
+        return 220;
+    }
     else
     {
         return 44;
@@ -878,13 +973,13 @@
     
 }
 - (NSString *)tableView:(UITableView *)tv titleForHeaderInSection:(NSInteger)section{
-    if (section == 4){
+    if (section == 5){
         return @"Select one or two mouthfeels";
     }
-    else if (section == 2){
+    else if (section == 4){
         return @"ADD Specific Wine Identity such as: vintage, Vineyard Appellation,special identity, etc.";
     }
-    else if (section == 1){
+    else if (section == 2){
         return @"Identify winery, class and type of wine";
     }
     else{
@@ -897,24 +992,91 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.view endEditing:YES];
     UITableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
-    [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    //[self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     self.currentIndexPath = indexPath;
     [self cancelDateSet];
     
     
-    if(indexPath.row == 0 && indexPath.section == 1)
+    if(indexPath.row == 0 && indexPath.section == 2)
     {
-        self.pickerArray = self.classArray;
+        //wine number selected
+        //self.pickerArray = self.classArray;
+        self.wineNumberBool = !self.wineNumberBool;
         
-        [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        [self createPickerAndShow];
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:2]];
+        
+        
+        if (!self.wineNumberBool) {
+            //                [self.tableview beginUpdates];
+            //
+            //                [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            //
+            //
+            //                [self.tableview endUpdates];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview insertRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+            
+        }
+        else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview deleteRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+        }
     }
-    else if(indexPath.row == 0 && indexPath.section == 3){
-        self.pickerArray = self.appearanceArray;
-        [self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    else if(indexPath.row == 2 && indexPath.section == 3){
+        //wine number selected
+        //self.pickerArray = self.classArray;
+        self.classBool = !self.classBool;
         
-        [self createPickerAndShow];
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:3 inSection:3]];
         
+        
+        if (!self.classBool) {
+            //                [self.tableview beginUpdates];
+            //
+            //                [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            //
+            //
+            //                [self.tableview endUpdates];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview insertRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+            
+            
+        }
+        else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.tableview reloadData];
+                [self.tableview beginUpdates];
+                
+                [self.tableview deleteRowsAtIndexPaths:@[[indexPaths objectAtIndex:0]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableview endUpdates];
+                //[self.tableview reloadData];
+            });
+        }
         
     }
     
@@ -1048,7 +1210,7 @@
 
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 10;
+    return 6;
     
 }
 
@@ -1890,12 +2052,32 @@
     UITableViewCell *cell   = [self.tableview cellForRowAtIndexPath:self.ratingCell];
     
     
+    
     NSString *inStr = [NSString stringWithFormat: @"%ld", (long)self.ratingSlider.value];
-    cell.detailTextLabel.text =  inStr;
+    self.ratingLabel.text =inStr;
+    
+    int rating = [inStr intValue];
+    
+    if (rating <= 70) {
+        cell.detailTextLabel.text =@"Faulty wine";
+    }else if(rating <=76){
+        cell.detailTextLabel.text = @"OK marginal wine but undistinguished.";
+    }else if(rating <=82){
+        cell.detailTextLabel.text = @"A good “tuesday night”, wine for reliable service.";
+    }else if(rating <=88){
+        cell.detailTextLabel.text = @"A pleasurable wine of good quality.";
+    }else if(rating <=94){
+        cell.detailTextLabel.text = @"This is a Distinguished wine for special occasions.";
+    }else{
+        cell.detailTextLabel.text = @"Outstanding Wine! Met highest expectations.";
+        
+    }
+    
     
     
     
 }
+
 
 -(void)leftImageButton{
     if ([UIImagePickerController isSourceTypeAvailable:

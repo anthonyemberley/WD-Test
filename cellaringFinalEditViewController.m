@@ -35,11 +35,11 @@ UINavigationControllerDelegate
         
     }
     
-    self.evaluationLabel.text = [@"Evaluation: " stringByAppendingString:self.evaluationIntString];
+    //self.evaluationLabel.text = [@"Evaluation: " stringByAppendingString:self.evaluationIntString];
     //    self.rightImageImage = [[UIImage alloc] init];
     //    self.leftImageImage = [[UIImage alloc] init];
     UIFont* boldFont = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
-    self.evaluationLabel.font = boldFont;
+    //self.evaluationLabel.font = boldFont;
     
     UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonPressed:)];
     
@@ -138,9 +138,10 @@ UINavigationControllerDelegate
         WDCellaring[@"leftImage"] = leftImageFile;
         WDCellaring[@"rightImage"] = rightImageFile;
         
-        
+        [WDCellaring[@"leftImage"] pinInBackground];
+        [WDCellaring[@"rightImage"] pinInBackground];
         [WDCellaring pinInBackground];
-        [WDCellaring saveInBackground];
+        [WDCellaring saveEventually];
         newCellaringNoteViewController *vc2 = [self.storyboard instantiateViewControllerWithIdentifier:@"newCellaringNoteViewController"];
         
         
