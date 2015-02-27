@@ -25,6 +25,8 @@
 @property CGSize imageSize;
 @property NSString *classString;
 @property NSString *evaluationString;
+@property NSString *ratingString;
+
 @property UILabel  *ratingLabel;
 
 
@@ -203,7 +205,10 @@
     anotherButton.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = anotherButton;
     
-    self.navigationItem.rightBarButtonItem.enabled = NO;
+    UIBarButtonItem *anotherButton2 = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editButtonPressed:)];
+    anotherButton2.tintColor = [UIColor whiteColor];
+    self.navigationItem.leftBarButtonItem = anotherButton2;
+    
     
     
     //Picker View Allocations:
@@ -245,10 +250,10 @@
     NSArray *classStuff = [[NSArray alloc] initWithObjects:@"Red Table Wine", @"White Table Wine", @"Rosé Table Wine", @"Sparkling Wine", @"Aperitif Wine", @"Dessert Wine", nil];
     self.classArray = classStuff;
     
-    NSArray *appearanceStuff = [[NSArray alloc] initWithObjects:@"Appearance is clear and brilliant.", @"Color and Appearance Expected for Type.", @"Appearance is cloudy, off-color or not bright.",  nil];
+    NSArray *appearanceStuff = [[NSArray alloc] initWithObjects:@"Appearance is clear and brilliant.", @"Color & Appearance Expected for Type.", @"Appearance is cloudy, off-color or not bright.",  nil];
     self.appearanceArray = appearanceStuff;
     
-    NSArray *mouthfeelStuff = [[NSArray alloc] initWithObjects:@"The mouthfeel is impressively rich and deep.", @"On the palate the wine is smooth and well­balanced.", @"The wine is crisp and bright in the mouth.", @"The wine is sweet, well balanced and enjoyable.", @"The wine is a bit rough and needs aging.", @"The wine seems excessively tart, alcoholic, or astringent.", nil];
+    NSArray *mouthfeelStuff = [[NSArray alloc] initWithObjects:@"The mouthfeel is impressively rich and deep.", @"On the palate the wine is smooth and well-­balanced.", @"The wine is crisp and bright in the mouth.", @"The wine is sweet, well balanced and enjoyable.", @"The wine is a bit rough and needs aging.", @"The wine seems excessively tart, alcoholic, or astringent.", nil];
     self.mouthfeelArray = mouthfeelStuff;
 
     NSArray *finishStuff = [[NSArray alloc] initWithObjects:@"The finish is memorable with outstanding length", @"The finish is appealing and lengthy.", @"The wine seems a bit short in its finish and length.", @"The finish is vapid.", nil];
@@ -349,86 +354,7 @@
     NSInteger section = [indexPath section];
     NSInteger row = [indexPath row];
     
-    
-    if (section == 0){
-            if (row == 0 ) {
-                
-                static NSString *CellIdentifier = @"PhotoCell";
-                
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-                    //Add custom objects to the cell in here!
-                    
-                    
-                    
-                    CGRect tempRect = cell.frame;
-                    cell.frame = CGRectMake(tempRect.origin.x, tempRect.origin.y, tempRect.size.width, tempRect.size.height +30);
-                    
-                    //right label
-                    UILabel *rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.center.x + 80, 38, cell.frame.size.height, cell.frame.size.height)];
-                    rightLabel.text = @"Back Label";
-                    rightLabel.font = [UIFont systemFontOfSize:12];
-                    [cell.contentView addSubview:rightLabel];
-                    
-                    //left label
-                    UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.center.x - 40, 38, cell.frame.size.height, cell.frame.size.height)];
-                    leftLabel.text = @"Front Label";
-                    leftLabel.font = [UIFont systemFontOfSize:12];
-                    [cell.contentView addSubview:leftLabel];
-                    
-                    
-                    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-camera-128.png"]];
-                    cell.textLabel.text = @"Add Photo";
-                    imageView.frame = CGRectMake(self.view.center.x +70, 38, cell.frame.size.height-10, cell.frame.size.height-10);
-                    
-                    
-                    imageView.center = CGPointMake(self.view.center.x +110, 33 );
-                    
-                    self.rightImage = imageView;
-                    [cell.contentView addSubview:self.rightImage];
-                    
-                    UIImageView *newImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-camera-128.png"]];
-                    cell.textLabel.text = @"Add Photo";
-                    newImageView.frame = CGRectMake(310, 48, cell.frame.size.height-10, cell.frame.size.height-10);
-                    self.leftImage = newImageView;
-                    
-                    self.imageSize = CGSizeMake(self.leftImage.frame.size.width, self.leftImage.frame.size.height);
-                    
-                    newImageView.center = CGPointMake(self.view.center.x - 7,33 );
-                    [cell.contentView addSubview:self.leftImage];
-                    
-                    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                    [button addTarget:self
-                               action:@selector(rightImageButton)
-                     forControlEvents:UIControlEventTouchUpInside];
-                    
-                    button.frame = CGRectMake(self.view.center.x +70, 38, cell.frame.size.height-10, cell.frame.size.height-10);
-                    button.center = CGPointMake(self.view.center.x +110, 33 );
-                    [cell.contentView addSubview:button];
-                    
-                    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                    [button2 addTarget:self
-                               action:@selector(leftImageButton)
-                     forControlEvents:UIControlEventTouchUpInside];
-                    
-                    button2.frame = CGRectMake(310, 48, cell.frame.size.height-10, cell.frame.size.height-10);
-                    button2.center = CGPointMake(self.view.center.x - 7,33 );
-                    [cell.contentView addSubview:button2];
-                }
-                
-                
-                cell.textLabel.text = @"Add Photo";
-                CGRect tempRect = cell.frame;
-                cell.frame = CGRectMake(tempRect.origin.x, tempRect.origin.y, tempRect.size.width, tempRect.size.height +30);
-                return cell;
-                
-                
-                
-                
-            }
-    }
-    if (row == 0 && section ==1){
+        if (row == 0 && section ==0){
         static NSString *CellIdentifier = @"WineryCell";
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -438,7 +364,7 @@
             self.wineryCell = indexPath;
             
             UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(cell.frame.origin.x +15, cell.frame.origin.y, cell.frame.size.width, 40)];
-            textField.placeholder = @"*Enter Winery or Brand (required)";
+            textField.placeholder = @"Winery or Brand";
             textField.adjustsFontSizeToFitWidth = YES;
             textField.returnKeyType = UIReturnKeyDone;
             textField.delegate = self;
@@ -461,7 +387,7 @@
         
                 
     }
-    else if (row == 1 && section == 1){
+    else if (row == 1 && section == 0){
         
         
         static NSString *CellIdentifier = @"TypeCell";
@@ -472,7 +398,7 @@
             //cell.textLabel.text = @"Type of Wine";
             self.typeCell = indexPath;
             UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(cell.frame.origin.x +15, cell.frame.origin.y, cell.frame.size.width, 40)];
-            textField.placeholder = @"*Enter Type of Wine (required)";
+            textField.placeholder = @"Type of Wine";
             textField.adjustsFontSizeToFitWidth = YES;
             textField.returnKeyType = UIReturnKeyDone;
             
@@ -490,7 +416,7 @@
         
         
     }
-    else if (row == 2 && section ==1){
+    else if (row == 4 && section ==0){
         
         
 
@@ -528,7 +454,7 @@
     }
     
 
-    else if (row == 3 && section == 1){
+    else if (row == 2 && section == 0){
         
        
         
@@ -538,28 +464,96 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            NSArray *texts = @[ @" Red ", @" White ", @" Rosé ",   @" Sparkling ", @" Dessert ",
+                                
+                                
+                                ];
+            
+            int indexOfLeftmostButtonOnCurrentLine = 0;
+            NSMutableArray *buttons = [[NSMutableArray alloc] init];
+            float runningWidth = 0.0f;
+            float maxWidth = self.view.frame.size.width-23;
+            float horizontalSpaceBetweenButtons = 11.0f;
+            float verticalSpaceBetweenButtons = 10.0f;
+            
+            for (int i=0; i<texts.count; i++) {
+                UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                [button setTitle:[texts objectAtIndex:i] forState:UIControlStateNormal];
+                [button sizeToFit];
+                [button setTitleColor:[self colorFromHexString:@"#DC143C"] forState:UIControlStateNormal];
+                
+                
+                [button setTag:i-1];
+                [button addTarget:self action:@selector(buttonTouched:) forControlEvents:UIControlEventTouchUpInside];
+                //                button.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y, button.frame.size.width +10, button.frame.size.height);
+                button.layer.borderWidth=1.5f;
+                [button.layer setCornerRadius:5.0f];
+                button.layer.borderColor=[[UIColor blackColor] CGColor];
+                button.translatesAutoresizingMaskIntoConstraints = NO;
+                
+                [cell.contentView addSubview:button];
+                
+                // check if first button or button would exceed maxWidth
+                if ((i == 0) || (runningWidth + button.frame.size.width > maxWidth)) {
+                    // wrap around into next line
+                    runningWidth = button.frame.size.width;
+                    
+                    if (i== 0) {
+                        // first button (top left)
+                        // horizontal position: same as previous leftmost button (on line above)
+                        NSLayoutConstraint *horizontalConstraint = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:horizontalSpaceBetweenButtons];
+                        [cell.contentView addConstraint:horizontalConstraint];
+                        
+                        // vertical position:
+                        NSLayoutConstraint *verticalConstraint = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeTop              multiplier:1.0f constant:verticalSpaceBetweenButtons];
+                        [cell.contentView addConstraint:verticalConstraint];
+                        
+                        
+                    } else {
+                        // put it in new line
+                        UIButton *previousLeftmostButton = [buttons objectAtIndex:indexOfLeftmostButtonOnCurrentLine];
+                        
+                        // horizontal position: same as previous leftmost button (on line above)
+                        NSLayoutConstraint *horizontalConstraint = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:previousLeftmostButton attribute:NSLayoutAttributeLeft multiplier:1.0f constant:0.0f];
+                        [cell.contentView addConstraint:horizontalConstraint];
+                        
+                        // vertical position:
+                        NSLayoutConstraint *verticalConstraint = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:previousLeftmostButton attribute:NSLayoutAttributeBottom multiplier:1.0f constant:verticalSpaceBetweenButtons];
+                        [cell.contentView addConstraint:verticalConstraint];
+                        
+                        indexOfLeftmostButtonOnCurrentLine = i;
+                    }
+                } else {
+                    // put it right from previous buttom
+                    runningWidth += button.frame.size.width + horizontalSpaceBetweenButtons;
+                    
+                    UIButton *previousButton = [buttons objectAtIndex:(i-1)];
+                    
+                    // horizontal position: right from previous button
+                    NSLayoutConstraint *horizontalConstraint = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:previousButton attribute:NSLayoutAttributeRight multiplier:1.0f constant:horizontalSpaceBetweenButtons];
+                    [cell.contentView addConstraint:horizontalConstraint];
+                    
+                    // vertical position same as previous button
+                    NSLayoutConstraint *verticalConstraint = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:previousButton attribute:NSLayoutAttributeTop multiplier:1.0f constant:0.0f];
+                    [cell.contentView addConstraint:verticalConstraint];
+                }
+                
+                [buttons addObject:button];
+            }
         }
         
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        cell.textLabel.textColor = [UIColor blueColor];
+        //        cell.textLabel.text = @"Test";
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        
-        cell.textLabel.text = @"*Select Class (required)";
-        
-        return cell;
-
-    }else if(section == 1 && row == 4){
-        //class picker cell
-        static NSString *CellIdentifier = @"PickerCell";
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        }
         
         
         return cell;
+        
     }
     
-    else if (section == 2 && row == 0){
+    else if (section == 0 && row == 3){
         static NSString *CellIdentifier = @"VintageCell";
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -568,7 +562,7 @@
             self.vintageCell = indexPath;
             //cell.textLabel.text = @"Vintage/Appellation/Price";
             UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(cell.frame.origin.x + 15, cell.frame.origin.y, cell.frame.size.width, 40)];
-            textField.placeholder = @"Vintage, Appellation, Vineyard Blend, Reserve, Price, et al";
+            textField.placeholder = @"Label Specifics: Vintage, Reserve, etc.";
             textField.adjustsFontSizeToFitWidth = YES;
             textField.returnKeyType = UIReturnKeyDone;
             
@@ -587,7 +581,7 @@
     
         
     }
-    else if (section == 2 && row == 1){
+    else if (section == 0 && row == 5){
         static NSString *CellIdentifier = @"WhenCell";
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -621,22 +615,101 @@
         //
         return cell;
         }
-        
     
-    else if(section == 3 && row == 0){
+    if (section == 1){
+        
+        
+        static NSString *CellIdentifier = @"PhotoCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            //Add custom objects to the cell in here!
+            
+            
+            
+            CGRect tempRect = cell.frame;
+            cell.frame = CGRectMake(tempRect.origin.x, tempRect.origin.y, tempRect.size.width, tempRect.size.height +30);
+            
+            //right label
+            UILabel *rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.center.x + 80, 38, cell.frame.size.height, cell.frame.size.height)];
+            rightLabel.text = @"Back Label";
+            rightLabel.font = [UIFont systemFontOfSize:12];
+            [cell.contentView addSubview:rightLabel];
+            
+            //left label
+            UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.center.x - 40, 38, cell.frame.size.height, cell.frame.size.height)];
+            leftLabel.text = @"Front Label";
+            leftLabel.font = [UIFont systemFontOfSize:12];
+            [cell.contentView addSubview:leftLabel];
+            
+            
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-camera-128.png"]];
+            cell.textLabel.text = @"Add Photo";
+            imageView.frame = CGRectMake(self.view.center.x +70, 38, cell.frame.size.height-10, cell.frame.size.height-10);
+            
+            
+            imageView.center = CGPointMake(self.view.center.x +110, 33 );
+            
+            self.rightImage = imageView;
+            [cell.contentView addSubview:self.rightImage];
+            
+            UIImageView *newImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-camera-128.png"]];
+            cell.textLabel.text = @"Add Photo";
+            newImageView.frame = CGRectMake(310, 48, cell.frame.size.height-10, cell.frame.size.height-10);
+            self.leftImage = newImageView;
+            
+            self.imageSize = CGSizeMake(self.leftImage.frame.size.width, self.leftImage.frame.size.height);
+            
+            newImageView.center = CGPointMake(self.view.center.x - 7,33 );
+            [cell.contentView addSubview:self.leftImage];
+            
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            [button addTarget:self
+                       action:@selector(rightImageButton)
+             forControlEvents:UIControlEventTouchUpInside];
+            
+            button.frame = CGRectMake(self.view.center.x +70, 38, cell.frame.size.height-10, cell.frame.size.height-10);
+            button.center = CGPointMake(self.view.center.x +110, 33 );
+            [cell.contentView addSubview:button];
+            
+            UIButton *button2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            [button2 addTarget:self
+                        action:@selector(leftImageButton)
+              forControlEvents:UIControlEventTouchUpInside];
+            
+            button2.frame = CGRectMake(310, 48, cell.frame.size.height-10, cell.frame.size.height-10);
+            button2.center = CGPointMake(self.view.center.x - 7,33 );
+            [cell.contentView addSubview:button2];
+        }
+        
+        
+        cell.textLabel.text = @"Add Photo";
+        CGRect tempRect = cell.frame;
+        cell.frame = CGRectMake(tempRect.origin.x, tempRect.origin.y, tempRect.size.width, tempRect.size.height +30);
+        return cell;
+        
+        
+        
+        
+        
+    }
+
+    
+    else if(section == 2 && row == 0){
         
             static NSString *CellIdentifier = @"ColorCell";
-            
+        
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
             }
-            
-            
+        
+        
             cell.textLabel.text = @"Appearance (optional)";
             self.appearanceCell = indexPath;
             return cell;
-    }else if(section == 3 && row == 1){
+    }else if(section == 2 && row == 1){
         //appearance picker cell
         static NSString *CellIdentifier = @"PickerCell";
         
@@ -649,7 +722,7 @@
         return cell;
     }
     
-    else if(section == 4){
+    else if(section == 3){
         
         
             
@@ -704,13 +777,13 @@
                                         [self colorFromHexString:@"#663300" ] ];
                     NSArray *texts = @[ @" blackberries ", @" blueberries ", @" currants ",   @" raspberries ", @" strawberries ",
                                         
-                                        
-                                        @" cut grass ", @" dried herbs ", @" dried straw ",
                                         @" asparagus ", @" bell pepper ", @" cat piss ",
-                                        @" black pepper ", @" cardamom ", @" coriander ",
-                                        @" botrytis tones ", @" honey ", @" perfume ",
+                                        @" cut grass ", @" dried herbs ", @" dried straw ",
                                         @" apples ", @" cherries ", @" citrus ", @" peach ",
                                         @" prunes ", @" raisins ", @" tropical fruit ",
+                                        @" black pepper ", @" cardamom ", @" coriander ",
+                                        @" botrytis tones ", @" honey ", @" perfume ",
+                                        
                                         @" barrel tones ", @" minerals ", @" oaky ", @" smoky "];
                     
                     int indexOfLeftmostButtonOnCurrentLine = 0;
@@ -801,7 +874,7 @@
                 
             
     }
-    else if(section ==5){
+    else if(section ==4){
         if (row == 0){
             static NSString *CellIdentifier = @"MouthFeelCell1";
             
@@ -811,7 +884,7 @@
             }
             
             
-            cell.textLabel.text = @"Mouthfeel (optional)";
+            cell.textLabel.text = @"Mouthfeel and Balance";
             self.mouthfeelCell = indexPath;
             return cell;
         }
@@ -831,7 +904,7 @@
         
     }
     
-    else if(section == 6 && row == 0){
+    else if(section == 5 && row == 0){
         
             static NSString *CellIdentifier = @"FinishCell";
             
@@ -841,10 +914,10 @@
             }
             
             
-            cell.textLabel.text  = @"Finish (select one, refine by editing)";
+            cell.textLabel.text  = @"Finish";
             self.finishCell = indexPath;
             return cell;
-    }else if(section == 6 && row == 1){
+    }else if(section == 5 && row == 1){
         //finish picker cell
         static NSString *CellIdentifier = @"PickerCell";
         
@@ -857,7 +930,7 @@
         return cell;
     }
     
-    else if(section == 7){
+    else if(section == 6){
         self.summaryCell = indexPath;
         
         static NSString *CellIdentifier = @"SummaryCell";
@@ -1070,17 +1143,12 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section ==0){
-        return 1;
+        return 6;
     }
     else if(section == 1){
-        if (self.classBool){
-            return 4;
-        }
-        else{
-            return 5;
-        }
+        return 1;
     }
-    else if (section == 3){
+    else if (section == 2){
         if (self.appearanceBool){
             return 1;
         }
@@ -1089,14 +1157,9 @@
         }
     }
     
-    else if (section == 4){
-        if (self.sectBool){
-            return 1;
-        }
-        else{
-            return 2;
-        }
-    }else if (section == 5){
+    else if (section == 3){
+        return 2;
+    }else if (section == 4){
         if (self.mouthfeelBool){
             return 1;
         }
@@ -1104,7 +1167,7 @@
             return 2;
         }
     }
-    else if (section == 6){
+    else if (section == 5){
         if (self.finishBool){
             return 1;
         }
@@ -1284,12 +1347,12 @@
 {
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
-    if((indexPath.row == 0 && indexPath.section == 0) || (indexPath.section == 1 && indexPath.row == 2))
+    if((indexPath.row == 0 && indexPath.section == 1) || (indexPath.section == 0 && indexPath.row == 4))
         return 85;
-    else if(indexPath.section == 10 || (indexPath.section == 4 && indexPath.row == 1)){
+    else if(indexPath.section == 10 || (indexPath.section == 3 && indexPath.row == 1)){
         return 370;
     }
-    else if(((section == 3 ||section == 5 ||section == 6)&&row ==1) || (section == 1 && row ==4) ){
+    else if(((section == 2 ||section == 4 ||section == 5)&&row ==1)  ){
         return 220;
     }
     else
@@ -1300,22 +1363,22 @@
 
 - (NSString *)tableView:(UITableView *)tv titleForFooterInSection:(NSInteger)section
 {
-    if (section == 1)
+    if (section == 0)
         return @"(*Above data is required for saving and recall of your notes)";
     else
         return @"";
     
 }
 - (NSString *)tableView:(UITableView *)tv titleForHeaderInSection:(NSInteger)section{
-    if (section == 1){
-        return @"Identify winery, class and type of wine";
-    }
-    else if (section == 2){
-        return @"+IMPORTANT: For specific wine identity, ADD: Vintage, Appellation, Vineyard Blend, Reserve, Price, et al";
-    }
-    else{
+//    if (section == 1){
+//        return @"Identify winery, class and type of wine";
+//    }
+//    else if (section == 2){
+//        return @"+IMPORTANT: For specific wine identity, ADD: Vintage, Appellation, Vineyard Blend, Reserve, Price, et al";
+//    }
+//    else{
         return @"";
-    }
+    //}
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1328,43 +1391,13 @@
     [self cancelDateSet];
 
     
-    if(indexPath.row == 3 && indexPath.section == 1)
-    {
-        self.pickerArray = self.classArray;
-        self.classBool = !self.classBool;
-        
-        NSMutableArray *indexPaths = [NSMutableArray array];
-        [indexPaths addObject:[NSIndexPath indexPathForRow:4 inSection:1]];
-        
-        
-        if (!self.classBool) {
-            [self.tableview beginUpdates];
-            
-            [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-            
-            
-            [self.tableview endUpdates];
-        }
-        else{
-            [self.tableview beginUpdates];
-            
-            [self.tableview deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-            
-            
-            
-            [self.tableview endUpdates];
-            
-        }
-        
-        //[self.tableview scrollToRowAtIndexPath:[self.tableview indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        //[self createPickerAndShow];
-    }
-    else if(indexPath.row == 0 && indexPath.section == 3){
+    
+    if(indexPath.row == 0 && indexPath.section == 2){
         self.pickerArray = self.appearanceArray;
         self.appearanceBool = !self.appearanceBool;
         
         NSMutableArray *indexPaths = [NSMutableArray array];
-        [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:3]];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:2]];
         
         
         if (!self.appearanceBool) {
@@ -1393,12 +1426,12 @@
     }
 
     
-    else if((indexPath.row == 0 || indexPath.row == 1) && indexPath.section == 5){
+    else if((indexPath.row == 0 ) && indexPath.section == 4){
         self.pickerArray = self.mouthfeelArray;
         self.mouthfeelBool = !self.mouthfeelBool;
         
         NSMutableArray *indexPaths = [NSMutableArray array];
-        [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:5]];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:4]];
         
         
         if (!self.mouthfeelBool) {
@@ -1426,12 +1459,12 @@
     }
     
         
-        else if(indexPath.row == 0 && indexPath.section == 6){
+        else if(indexPath.row == 0 && indexPath.section == 5){
         self.pickerArray = self.finishArray;
             self.finishBool = !self.finishBool;
             
             NSMutableArray *indexPaths = [NSMutableArray array];
-            [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:6]];
+            [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:5]];
             
             
             if (!self.finishBool) {
@@ -1459,48 +1492,48 @@
 
         
     }
-        else if(indexPath.row == 0 && indexPath.section == 4){
-            self.sectBool = !self.sectBool;
-            
-            NSMutableArray *indexPaths = [NSMutableArray array];
-            [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:4]];
-            
-            
-            if (!self.sectBool) {
-//                [self.tableview beginUpdates];
+//        else if(indexPath.row == 0 && indexPath.section == 3){
+//            self.sectBool = !self.sectBool;
+//            
+//            NSMutableArray *indexPaths = [NSMutableArray array];
+//            [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:3]];
+//            
+//            
+//            if (!self.sectBool) {
+////                [self.tableview beginUpdates];
+////                
+////                [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+////                
+////                
+////                [self.tableview endUpdates];
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    //[self.tableview reloadData];
+//                    [self.tableview beginUpdates];
+//                    
+//                    [self.tableview insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:3]]
+//                                          withRowAnimation:UITableViewRowAnimationFade];
+//                    [self.tableview endUpdates];
+//                    //[self.tableview reloadData];
+//                });
 //                
-//                [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
 //                
+//            }
+//            else{
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    //[self.tableview reloadData];
+//                    [self.tableview beginUpdates];
+//                    
+//                    [self.tableview deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:3]]
+//                                          withRowAnimation:UITableViewRowAnimationFade];
+//                    [self.tableview endUpdates];
+//                    //[self.tableview reloadData];
+//                });
 //                
-//                [self.tableview endUpdates];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    //[self.tableview reloadData];
-                    [self.tableview beginUpdates];
-                    
-                    [self.tableview insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:4]]
-                                          withRowAnimation:UITableViewRowAnimationFade];
-                    [self.tableview endUpdates];
-                    //[self.tableview reloadData];
-                });
-                
-                
-            }
-            else{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    //[self.tableview reloadData];
-                    [self.tableview beginUpdates];
-                    
-                    [self.tableview deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:4]]
-                                          withRowAnimation:UITableViewRowAnimationFade];
-                    [self.tableview endUpdates];
-                    //[self.tableview reloadData];
-                });
-                
-            }
-            
-        
-            
-        }
+//            }
+//            
+//        
+//            
+//        }
         else if (indexPath.section == 9)   {
            [self performSegueWithIdentifier:@"finalEditSegue" sender:self];
         }
@@ -1513,7 +1546,7 @@
 
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 8;
+    return 7;
     
 }
 
@@ -1598,23 +1631,11 @@
     
 }
 
--(void)checkSavebutton{
+-(int)checkSavebutton{
     
-    
-    if (self.classString.length >= 1  && ([self.wineryTextFieldView.text length] >= 1 ) && ([self.typeTextFieldView.text length] >= 1 ) &&(self.evaluationString.length >=1)) {
-        self.rowIsSelectable = 1;
-        self.navigationItem.rightBarButtonItem.enabled =YES;
+    //add class logic
+    return (([self.wineryTextFieldView.text length] >= 1 ) && ([self.typeTextFieldView.text length] >= 1 )&& ([self.vintageTextFieldView.text length] >= 1 ) && self.ratingString.length>=1) ;
         
-    }
-    else{
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-    
-        self.rowIsSelectable = 0;
-        
-        
-        
-        
-    }
     
 }
 
@@ -1763,46 +1784,61 @@
 //    [self.navigationController popToRootViewControllerAnimated:YES];
     
 //
-    [self updateTextString];
     
-    NSString *wineryString = self.wineryTextFieldView.text;
-    NSString *typeString = self.typeTextFieldView.text;
+    if ([self checkSavebutton]) {
+        [self updateTextString];
+        
+        NSString *wineryString = self.wineryTextFieldView.text;
+        NSString *typeString = self.typeTextFieldView.text;
+        
+        UIImage *leftImage = self.leftImage.image;
+        UIImage *rightImage = self.rightImage.image;
+        
+        PFUser *user = [PFUser currentUser];
+        NSString *userString = user.username;
+        
+        PFObject *WDTasting = [PFObject objectWithClassName:@"WDTasting"];
+        WDTasting[@"classString"] = self.classString;
+        WDTasting[@"noteString"] = self.editTextString;
+        WDTasting[@"wineryString"] = wineryString;
+        WDTasting[@"typeString"] = typeString;
+        WDTasting[@"userName"] = userString;
+        [WDTasting setObject:[NSDate date] forKey:@"myDate"];
+        
+        NSData *leftImageData = UIImageJPEGRepresentation(leftImage, 1);
+        NSData *rightImageData = UIImageJPEGRepresentation(rightImage, 1);
+        PFFile *leftImageFile = [PFFile fileWithName:@"icon-camera-128.png" data:leftImageData];
+        PFFile *rightImageFile = [PFFile fileWithName:@"icon-camera-128.png" data:rightImageData];
+        
+        WDTasting[@"leftImage"] = leftImageFile;
+        WDTasting[@"rightImage"] = rightImageFile;
+        
+        
+        [WDTasting pinInBackground];
+        [WDTasting saveInBackground];
+        
+        TableViewSectionsViewController *vc2 = [self.storyboard instantiateViewControllerWithIdentifier:@"tableViewSectionsViewController"];
+        
+        
+        [self.navigationController pushViewController:vc2 animated:YES ];
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Information"
+                                                        message:@"Make sure you fill out all required fields before saving"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
     
-    UIImage *leftImage = self.leftImage.image;
-    UIImage *rightImage = self.rightImage.image;
-    
-    PFUser *user = [PFUser currentUser];
-    NSString *userString = user.username;
-    
-    PFObject *WDTasting = [PFObject objectWithClassName:@"WDTasting"];
-    WDTasting[@"classString"] = self.classString;
-    WDTasting[@"noteString"] = self.editTextString;
-    WDTasting[@"wineryString"] = wineryString;
-    WDTasting[@"typeString"] = typeString;
-    WDTasting[@"userName"] = userString;
-    [WDTasting setObject:[NSDate date] forKey:@"myDate"];
-    
-    NSData *leftImageData = UIImageJPEGRepresentation(leftImage, 1);
-    NSData *rightImageData = UIImageJPEGRepresentation(rightImage, 1);
-    PFFile *leftImageFile = [PFFile fileWithName:@"icon-camera-128.png" data:leftImageData];
-    PFFile *rightImageFile = [PFFile fileWithName:@"icon-camera-128.png" data:rightImageData];
-    
-    WDTasting[@"leftImage"] = leftImageFile;
-    WDTasting[@"rightImage"] = rightImageFile;
-    
-    
-    [WDTasting pinInBackground];
-    [WDTasting saveInBackground];
-    
-    TableViewSectionsViewController *vc2 = [self.storyboard instantiateViewControllerWithIdentifier:@"tableViewSectionsViewController"];
-    
-    
-    [self.navigationController pushViewController:vc2 animated:YES ];
 }
 
--(void)leftBarButtonPressed:(id) sender{
-    [self performSegueWithIdentifier:@"tastingToInitialSearch" sender:self];
+-(void)editButtonPressed:(id) sender{
+    NSIndexPath *cell = [NSIndexPath indexPathForRow:0 inSection:6];
+    
+    [self.tableview scrollToRowAtIndexPath:cell atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    
 }
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -2367,6 +2403,7 @@
         cell.detailTextLabel.text = @"Outstanding Wine! Met highest expectations.";
 
     }
+    self.ratingString = cell.detailTextLabel.text;
     
    
     
