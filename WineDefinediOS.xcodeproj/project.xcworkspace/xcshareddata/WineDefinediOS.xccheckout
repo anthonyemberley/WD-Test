@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>968DD1A9-3A18-4007-97FA-6FEBBB003EA3</string>
+	<key>IDESourceControlProjectName</key>
+	<string>WineDefinediOS</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1FB2F86B9A26208FE79FC12331BC2FA45A64BDB5</key>
+		<string>https://github.com/anthonyemberley/WD-Test.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>WineDefinediOS.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1FB2F86B9A26208FE79FC12331BC2FA45A64BDB5</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/anthonyemberley/WD-Test.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1FB2F86B9A26208FE79FC12331BC2FA45A64BDB5</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1FB2F86B9A26208FE79FC12331BC2FA45A64BDB5</string>
+			<key>IDESourceControlWCCName</key>
+			<string>WineDefinediOS</string>
+		</dict>
+	</array>
+</dict>
+</plist>
