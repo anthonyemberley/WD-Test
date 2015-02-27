@@ -1929,7 +1929,7 @@
         WDCellaring[@"classString"] = [NSNull null] ;//self.classString;
         WDCellaring[@"noteString"] =  [NSNull null] ;//self.editTextString;
         WDCellaring[@"wineryString"] = [NSNull null] ;//self.wineryTextFieldView.text;
-        WDCellaring[@"typeString"] =[NSNull null] ;// self.typeTextFieldView.text;
+        WDCellaring[@"typeString"] =[NSNull null];// self.typeTextFieldView.text;
         WDCellaring[@"userName"] = userString;
 //        if (self.overallRating != nil){
 //            WDCellaring[@"evaluation"] = self.overallRating;

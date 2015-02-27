@@ -1511,13 +1511,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WineDefinediOS/newCellaringNoteViewController.m"
-            timestampString = "446710403.412538"
+            filePath = "WineDefinediOS/recentCellaringViewController.m"
+            timestampString = "446739307.766109"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1947"
-            endingLineNumber = "1947"
-            landmarkName = "-rightBarButtonPressed:"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
